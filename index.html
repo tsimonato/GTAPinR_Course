@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.484">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Thiago Simonato">
+<meta name="author" content="Uris Lantz Baldos">
+<meta name="dcterms.date" content="2024-03-10">
+
+<title>GTAP in R workshop</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="roadmap_gtapinr_files/libs/clipboard/clipboard.min.js"></script>
+<script src="roadmap_gtapinr_files/libs/quarto-html/quarto.js"></script>
+<script src="roadmap_gtapinr_files/libs/quarto-html/popper.min.js"></script>
+<script src="roadmap_gtapinr_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="roadmap_gtapinr_files/libs/quarto-html/anchor.min.js"></script>
+<link href="roadmap_gtapinr_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="roadmap_gtapinr_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="roadmap_gtapinr_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="roadmap_gtapinr_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="roadmap_gtapinr_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="roadmap_gtapinr_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="roadmap_gtapinr_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="roadmap_gtapinr_files/libs/quarto-diagram/mermaid.min.js"></script>
+<script src="roadmap_gtapinr_files/libs/quarto-diagram/mermaid-init.js"></script>
+<link href="roadmap_gtapinr_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="roadmap_gtapinr_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="roadmap_gtapinr_files/libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="roadmap_gtapinr_files/libs/datatables-binding-0.30/datatables.js"></script>
+<script src="roadmap_gtapinr_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="roadmap_gtapinr_files/libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="roadmap_gtapinr_files/libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="roadmap_gtapinr_files/libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="roadmap_gtapinr_files/libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="roadmap_gtapinr_files/libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Workshop Roadmap</h2>
+   
+  <ul>
+  <li><a href="#workshop-overview" id="toc-workshop-overview" class="nav-link active" data-scroll-target="#workshop-overview"><span class="header-section-number">1</span> Workshop Overview</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">2</span> Introduction</a></li>
+  <li><a href="#setting-up" id="toc-setting-up" class="nav-link" data-scroll-target="#setting-up"><span class="header-section-number">3</span> Setting Up</a>
+  <ul>
+  <li><a href="#a-brief-overview-of-data-structures-in-r" id="toc-a-brief-overview-of-data-structures-in-r" class="nav-link" data-scroll-target="#a-brief-overview-of-data-structures-in-r"><span class="header-section-number">3.1</span> A Brief Overview of Data Structures in R</a></li>
+  </ul></li>
+  <li><a href="#hands-on-session" id="toc-hands-on-session" class="nav-link" data-scroll-target="#hands-on-session"><span class="header-section-number">4</span> Hands-On Session</a>
+  <ul>
+  <li><a href="#step-1-set-up-the-gtap-database" id="toc-step-1-set-up-the-gtap-database" class="nav-link" data-scroll-target="#step-1-set-up-the-gtap-database"><span class="header-section-number">4.1</span> Step 1: Set up the GTAP database</a>
+  <ul>
+  <li><a href="#task-1-loading-the-gtap-database" id="toc-task-1-loading-the-gtap-database" class="nav-link" data-scroll-target="#task-1-loading-the-gtap-database"><span class="header-section-number">4.1.1</span> Task 1: Loading the GTAP Database</a></li>
+  <li><a href="#task-2-extracting-and-filtering-data" id="toc-task-2-extracting-and-filtering-data" class="nav-link" data-scroll-target="#task-2-extracting-and-filtering-data"><span class="header-section-number">4.1.2</span> Task 2: Extracting and Filtering Data</a></li>
+  <li><a href="#task-3-converting-data-for-analysis" id="toc-task-3-converting-data-for-analysis" class="nav-link" data-scroll-target="#task-3-converting-data-for-analysis"><span class="header-section-number">4.1.3</span> Task 3: Converting Data for Analysis</a></li>
+  <li><a href="#task-4-exploring-the-data" id="toc-task-4-exploring-the-data" class="nav-link" data-scroll-target="#task-4-exploring-the-data"><span class="header-section-number">4.1.4</span> Task 4: Exploring the data</a></li>
+  </ul></li>
+  <li><a href="#step-2-read-the-model" id="toc-step-2-read-the-model" class="nav-link" data-scroll-target="#step-2-read-the-model"><span class="header-section-number">4.2</span> Step 2: Read the model</a></li>
+  <li><a href="#step-3-setup-the-closure-and-shocks" id="toc-step-3-setup-the-closure-and-shocks" class="nav-link" data-scroll-target="#step-3-setup-the-closure-and-shocks"><span class="header-section-number">4.3</span> Step 3: Setup the closure and shocks</a>
+  <ul>
+  <li><a href="#task-1-identifying-exogenous-variables" id="toc-task-1-identifying-exogenous-variables" class="nav-link" data-scroll-target="#task-1-identifying-exogenous-variables"><span class="header-section-number">4.3.1</span> Task 1: Identifying Exogenous Variables</a></li>
+  <li><a href="#task-2-initializing-model-variables" id="toc-task-2-initializing-model-variables" class="nav-link" data-scroll-target="#task-2-initializing-model-variables"><span class="header-section-number">4.3.2</span> Task 2: Initializing Model Variables</a></li>
+  <li><a href="#task-3-applying-shocks-to-the-model" id="toc-task-3-applying-shocks-to-the-model" class="nav-link" data-scroll-target="#task-3-applying-shocks-to-the-model"><span class="header-section-number">4.3.3</span> Task 3: Applying Shocks to the Model</a></li>
+  </ul></li>
+  <li><a href="#run-the-model" id="toc-run-the-model" class="nav-link" data-scroll-target="#run-the-model"><span class="header-section-number">4.4</span> Run the model</a></li>
+  </ul></li>
+  <li><a href="#extra-content-post-sim-analisys" id="toc-extra-content-post-sim-analisys" class="nav-link" data-scroll-target="#extra-content-post-sim-analisys"><span class="header-section-number">5</span> Extra content: Post Sim analisys</a></li>
+  <li><a href="#qa-and-discussion" id="toc-qa-and-discussion" class="nav-link" data-scroll-target="#qa-and-discussion"><span class="header-section-number">6</span> Q&amp;A and Discussion</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="roadmap_gtapinr.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="roadmap_gtapinr.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">GTAP in R workshop</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Thiago Simonato <a href="mailto:tsimonat@purdue.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Postdoc Research Associate, Global Trade Analysis (GTAP), Purdue University
+          </p>
+      </div>
+      <div class="quarto-title-meta-contents">
+    <p class="author">Uris Lantz Baldos <a href="mailto:ubaldos@purdue.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Research Associate Professor, Center for Global Trade Analysis, Department of Agricultural Economics, Purdue University
+          </p>
+      </div>
+    </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 10, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<style type="text/css">
+p {
+  text-align: justify
+}
+</style>
+</div>
+<div style="page-break-after: always;"></div>
+<section id="workshop-overview" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Workshop Overview</h1>
+<p>This workshop is designed to introduce a couple of tools to work with <a href="https://www.gtap.agecon.purdue.edu/">GTAP</a> models in <a href="https://www.r-project.org/">R</a>. Our session, spanning 120 minutes, will cover a comprehensive range of topics, from the basic installation of the packages to utilizing its features. This workshop is structured to provide a comprehensive overview of the strategies used to interpret and solve the GTAP version 7<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> model, with a primary focus on practical, hands-on experience. Among the packages used in the workshop is the <a href="https://github.com/USDA-ERS/MTED-HARr">HARr</a> package, which serves as a bridge between the databases and the R language by reading and writing <em>.har</em> files adopted in the <a href="https://www.copsmodels.com/gpmanual.htm#gpd5.8.1">GEMPACK</a> suite. The <a href="https://github.com/USDA-ERS/MTED-TabloToR">TabloToR</a> package that runs GTAP simulations as it interprets the model in GEMPACK-style TABLO <em>.tab</em> files and solves it within the R environment<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Other data visualization packages are also used as an example of an application for building automated analysis in R.</p>
+<table class="table-striped table-hover table">
+<caption>Workshop Agenda</caption>
+<thead>
+<tr class="header">
+<th>Topic</th>
+<th>Duration</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Workshop Overview</td>
+<td>5 minutes</td>
+</tr>
+<tr class="even">
+<td>Introduction</td>
+<td>5 minutes</td>
+</tr>
+<tr class="odd">
+<td>A Brief Overview of Data Structures in R</td>
+<td>5 minutes</td>
+</tr>
+<tr class="even">
+<td>Setting up</td>
+<td>5 minutes</td>
+</tr>
+<tr class="odd">
+<td>Hands-On Session</td>
+<td>30 minutes</td>
+</tr>
+<tr class="even">
+<td>Q&amp;A and Discussion</td>
+<td>15 minutes</td>
+</tr>
+<tr class="odd">
+<td>Extra contents</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="introduction" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Introduction</h1>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Welcome and workshop objectives</li>
+<li>Brief <code>base R</code> data structure description</li>
+<li>Overview of <code>TabloToR</code></li>
+<li>Is this completely free?</li>
+<li>Applications</li>
+<li>Limitations</li>
+</ul>
+</div>
+</div>
+<p>The diagram below illustrates the R package workflow for modeling. It starts with initializing the model, followed by configuring data loading, model translation from TABLO to R, closure setup, and shock application. The process concludes with running the model to obtain results.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    A[Initialize] --&gt;|"tabloToR::GEModel$new()"| B(Model)
+    G[Load data] --&gt; |"model$loadData()"| B
+    X['Translate' the model] --&gt; |"model$loadTablo()"| B
+    H[Setup closure] --&gt; B
+    Z[Setup shocks] --&gt; B
+    B --&gt; |"model$solveModel()"| C[Get the results]
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="setting-up" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Setting Up</h1>
+<p>To run the workshop exercises, you will need to have <em>R</em> installed on your computer. You can download R from the <a href="https://www.r-project.org/">Comprehensive R Archive Network (CRAN)</a>. We also highly recommend installing <em>RStudio</em>, a powerful and user-friendly integrated development environment for R. RStudio can be downloaded from the <a href="https://posit.co/download/rstudio-desktop/">official RStudio website</a>.</p>
+<p>Additionally, the <code>TabloToR</code> package is required for the workshop. If it is not already installed on your system, you can install it using the following command in R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"devtools"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"tabloToR"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">'tsimonato/MTED-TabloToR'</span>, <span class="at">force =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Set working directory to the workshop folder:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">In Rstudio</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Manual</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>The command below sets the Rstudio working directory to the folder where the .R file you are editing is located (only works if you are using Rstudio):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">dirname</span>(rstudioapi<span class="sc">::</span><span class="fu">getActiveDocumentContext</span>()<span class="sc">$</span>path))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>When setting the working directory manually in R, remember that R does not accept the single backslash <code>\</code> in file paths. Instead, you should use either double backslashes <code>\\</code> or forward slashes <code>/</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"PATH TO WORKSHOP FOLDER HERE"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "C:/Users/tcsim/OneDrive/purdue_postdoc/projects/workshop_gtapinr"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>We will use the <code>package::function()</code> synthax in the code examples. Therefore, <code>library("package")</code> commands will not be necessary.</li>
+<li>Check if your current working directory is correct.</li>
+</ul>
+</div>
+</div>
+<section id="a-brief-overview-of-data-structures-in-r" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="a-brief-overview-of-data-structures-in-r"><span class="header-section-number">3.1</span> A Brief Overview of Data Structures in R</h2>
+<p>R provides several data structures for handling data. Among the most commonly used are <a href="https://rstudio.github.io/r-manuals/r-intro/Lists-and-data-frames.html#data-frames">Data.frames</a>, <a href="https://rstudio.github.io/r-manuals/r-intro/Arrays-and-matrices.html#arrays">Arrays</a>, and <a href="https://rstudio.github.io/r-manuals/r-intro/Lists-and-data-frames.html#lists">Lists</a>. Each structure has its unique features and use cases.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Data.frames</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Arrays</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false" href="">Lists</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p>A <a href="https://rstudio.github.io/r-manuals/r-intro/Lists-and-data-frames.html#data-frames">Data.frame</a> is a table or a two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column. It’s similar to a spreadsheet or SQL table and is particularly well-suited for data manipulation and analysis tasks.</p>
+<p>Example of a Data.frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Commodities =</span> <span class="fu">c</span>(<span class="st">"Wheat"</span>, <span class="st">"Corn"</span>, <span class="st">"Wheat"</span>, <span class="st">"Corn"</span>),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Activities =</span> <span class="fu">c</span>(<span class="st">"Farming"</span>, <span class="st">"Farming"</span>, <span class="st">"Harvesting"</span>, <span class="st">"Harvesting"</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Margins =</span> <span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>, <span class="st">"Low"</span>, <span class="st">"High"</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Values =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-438cb92342a6e134dd0e" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-438cb92342a6e134dd0e">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],["Wheat","Corn","Wheat","Corn"],["Farming","Farming","Harvesting","Harvesting"],["Low","High","Low","High"],[1,2,3,4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Commodities<\/th>\n      <th>Activities<\/th>\n      <th>Margins<\/th>\n      <th>Values<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"searching":false,"paging":false,"info":false,"columnDefs":[{"className":"dt-right","targets":4},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>.</p>
+<p>Subsetting in a Data.frame can be done to select specific rows, columns, or both:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Filter by row</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Filter by column</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">Filter by rows and columns</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>Here, we select rows where the <code>Values</code> column is greater than 2</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df[df<span class="sc">$</span>Values <span class="sc">&gt;</span> <span class="dv">2</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Commodities Activities Margins Values
+3       Wheat Harvesting     Low      3
+4        Corn Harvesting    High      4</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Here, we select the ‘Commodities’ column</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Commodities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Wheat" "Corn"  "Wheat" "Corn" </code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<p>Here, we select rows where ‘Values’ is greater than 2 and only the ‘Commodities’ and ‘Activities’ columns</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df[df<span class="sc">$</span>Values <span class="sc">&gt;</span> <span class="dv">2</span>, <span class="fu">c</span>(<span class="st">"Commodities"</span>, <span class="st">"Activities"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Commodities Activities
+3       Wheat Harvesting
+4        Corn Harvesting</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p>An <a href="https://rstudio.github.io/r-manuals/r-intro/Arrays-and-matrices.html#arrays">Array</a> in R is a multi-dimensional data structure that can store data in more than two dimensions. While arrays can have any number of dimensions, a two-dimensional array is known as a matrix. Arrays are useful for performing mathematical operations on multi-dimensional data.</p>
+<p>Example of an Array:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming each combination of categories has a unique value</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>array_data <span class="ot">&lt;-</span> <span class="fu">array</span>(df<span class="sc">$</span>Values, <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(array_data) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>(df<span class="sc">$</span>Commodities),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>(df<span class="sc">$</span>Activities),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>(df<span class="sc">$</span>Margins)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>array_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>, , Low
+
+      Farming Harvesting
+Wheat       1          3
+Corn        2          4
+
+, , High
+
+      Farming Harvesting
+Wheat       1          3
+Corn        2          4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subsetting data from an Array</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>array_subset <span class="ot">&lt;-</span> array_data[<span class="st">"Wheat"</span>, <span class="st">"Farming"</span>, ]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>array_subset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Low High 
+   1    1 </code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
+<p>A <a href="https://rstudio.github.io/r-manuals/r-intro/Lists-and-data-frames.html#lists">List</a> is a collection of elements that can be of different types and structures. You can think of a list as a container that holds a variety of objects, which can be accessed and <a href="https://rstudio.github.io/r-manuals/r-intro/Lists-and-data-frames.html#constructing-and-modifying-lists">manipulated individually</a>.</p>
+<p>Example of a List:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>list_data <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Data_Frame =</span> df,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Array =</span> array_data,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Details =</span> <span class="fu">list</span>(</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Commodities =</span> <span class="fu">unique</span>(df<span class="sc">$</span>Commodities),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Activities =</span> <span class="fu">unique</span>(df<span class="sc">$</span>Activities),</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Margins =</span> <span class="fu">unique</span>(df<span class="sc">$</span>Margins)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>list_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Data_Frame
+  Commodities Activities Margins Values
+1       Wheat    Farming     Low      1
+2        Corn    Farming    High      2
+3       Wheat Harvesting     Low      3
+4        Corn Harvesting    High      4
+
+$Array
+, , Low
+
+      Farming Harvesting
+Wheat       1          3
+Corn        2          4
+
+, , High
+
+      Farming Harvesting
+Wheat       1          3
+Corn        2          4
+
+
+$Details
+$Details$Commodities
+[1] "Wheat" "Corn" 
+
+$Details$Activities
+[1] "Farming"    "Harvesting"
+
+$Details$Margins
+[1] "Low"  "High"</code></pre>
+</div>
+</div>
+<p>You can subset elements of a list using the <code>$</code>. For nested lists, you can chain these operators to access deeper levels.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Select a Data.frame within the list</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Select a specific column in the Data.frame</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false" href="">Select a specific value in the Array</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>list_data<span class="sc">$</span>Data_Frame</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Commodities Activities Margins Values
+1       Wheat    Farming     Low      1
+2        Corn    Farming    High      2
+3       Wheat Harvesting     Low      3
+4        Corn Harvesting    High      4</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>list_data<span class="sc">$</span>Data_Frame<span class="sc">$</span>Commodities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Wheat" "Corn"  "Wheat" "Corn" </code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>list_data<span class="sc">$</span>Array[<span class="st">"Wheat"</span>, <span class="st">"Farming"</span>, <span class="st">"Low"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="hands-on-session" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Hands-On Session</h1>
+<p>In this section, our attention will be centered on the steps evolved to run <strong>GTAPv7</strong> simulations in R. We will delve into some key tasks: learning how to effectively import and examine .har files in R, interpreting models presented in .tab format within the R environment, executing simulations, and exploring the resulting data.</p>
+<section id="step-1-set-up-the-gtap-database" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="step-1-set-up-the-gtap-database"><span class="header-section-number">4.1</span> Step 1: Set up the GTAP database</h2>
+<p>GEMPACK utilizes custom .har binary data files. The R package <a href="https://github.com/USDA-ERS/MTED-HARr">HARr</a> enables R to directly read these .har files, specifically headers with character, integer, and dense real matrices. It converts the data in these headers, including set information, into a <a href="https://rstudio.github.io/r-manuals/r-intro/Arrays-and-matrices.html">list</a> of <a href="https://rstudio.github.io/r-manuals/r-intro/Arrays-and-matrices.html">arrays</a>, in which each array represents an Header of the .har file.</p>
+<p>In this step, you’ll write a script to read the GTAP model’s database files and explore specific data within them. After loading the files, extract and examine the header <code>vdfb</code> (Domestic purchases, by firms, at basic prices) from the appropriate file. Explore the structure and contents of this header.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tasks
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Load the .har files using the HARr package.</li>
+<li>From the loaded files, extract the header <code>vmfp</code>(Imported purchases, by firms, at producers prices), then subset acts to <code>food</code>.</li>
+<li>Convert <code>vmfp</code> to a data.frame class.</li>
+<li>Analyze the extracted <code>vdfb</code> data. You can make a chart if you want it.</li>
+</ol>
+</div>
+</div>
+<section id="task-1-loading-the-gtap-database" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="task-1-loading-the-gtap-database"><span class="header-section-number">4.1.1</span> Task 1: Loading the GTAP Database</h3>
+<p>In this task, you will learn how to load the GTAP model’s database files into R using the <code>HARr</code> package. This step is crucial as it sets the foundation for all subsequent analyses. You’ll focus on how to read .har files and understand their structure within the R environment.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The name of each list must be the same as that specified in the database model, preferably in lowercase. See below that the names in the .tab file and the previously generated lists are the same.</p>
+<p><em>GTAPv7.tab</em>, line 99:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>File</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    GTAPSETS <span class="co"># file with set specification #;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>File</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    GTAPDATA <span class="co"># file containing all Base Data #;</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>File</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    GTAPPARM <span class="co"># file containing behavioral parameters #;</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>...    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Use the HARr package to load the .har files named <em>SETS.HAR</em>, <em>Default.prm</em>, and <em>Basedata.har</em> into R. Store the read files in a list named data, with keys <code>gtapsets</code>, <code>gtapdata</code>, and <code>gtapparm</code> respectively.</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You need to get the data files .har</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>database <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">gtapsets =</span> HARr<span class="sc">::</span><span class="fu">read_har</span>(<span class="st">'model</span><span class="sc">\\</span><span class="st">SETS.HAR'</span>),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gtapdata =</span> HARr<span class="sc">::</span><span class="fu">read_har</span>(<span class="st">'model</span><span class="sc">\\</span><span class="st">Basedata.har'</span>),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">gtapparm =</span> HARr<span class="sc">::</span><span class="fu">read_har</span>(<span class="st">'model</span><span class="sc">\\</span><span class="st">Default.prm'</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Data structure:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">classDiagram
+    class database {
+        +List of 3 lists
+    }
+    class gtapsets {
+        +List of 10 obj
+        --------------
+        +dver: array [1d]
+        +reg: chr [3]
+        +comm: chr [3]
+        +marg: chr
+        +acts: chr [3]
+        +endw: chr [5]
+        +endm: chr [3]
+        +endf: chr
+        +ends: chr
+        +endt: chr [3]
+    }
+    class gtapparm {
+        +List of 17 arrays
+        --------------
+        +dver: array [1d]
+        +subp: array [comm, reg]
+        +incp: array [comm, reg]
+        +esbt: array [acts, reg]
+        +esbc: array [acts, reg]
+        +esbv: array [acts, reg]
+        +etre: array [endw, reg]
+        +etrq: array [acts, reg]
+        +esbd: array [comm, reg]
+        +esbm: array [comm, reg]
+        +esbs: array [marg]
+        +esbg: array [reg]
+        +esbi: array [reg]
+        +esbq: array [comm, reg]
+        +eflg: array [endw, reg]
+        +rdlt: array [endw, endwt]
+        +rflx: array [reg]
+    }
+    class gtapdata {
+        +List of 33 arrays
+        --------------
+        +dver: array [1d]
+        +dpsm: array [reg]
+        +evfp: array [endw, acts, reg]
+        +evos: array [endw, acts, reg]
+        +save: array [reg]
+        +vosb: array [comm, reg]
+        +vdep: array [reg]
+        +vdfp: array [comm, acts, reg]
+        +vdfb: array [comm, acts, reg]
+        +vdgp: array [comm, reg]
+        +vdgb: array [comm, reg]
+        +vdpp: array [comm, reg]
+        +vdpb: array [comm, reg]
+        +vdip: array [comm, reg]
+        +vdib: array [comm, reg]
+        +evfb: array [endw, acts, reg]
+        +vmfp: array [comm, acts, reg]
+        +vmfb: array [comm, acts, reg]
+        +vmgp: array [comm, reg]
+        +vmgb: array [comm, reg]
+        +vmpp: array [comm, reg]
+        +vmpb: array [comm, reg]
+        +vmip: array [comm, reg]
+        +vmib: array [comm, reg]
+        +vmsb: array [comm, reg, reg]
+        +vcif: array [comm, reg, reg]
+        +vkb: array [reg]
+        +vst: array [marg, reg]
+        +vtwr: array [marg, comm, reg, reg]
+        +vfob: array [comm, reg, reg]
+        +vxsb: array [comm, reg, reg]
+        +maks: array [comm, acts, reg]
+        +makb: array [comm, acts, reg]
+    }
+    database --|&gt; gtapsets
+    database --|&gt; gtapparm
+    database --|&gt; gtapdata
+</pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="task-2-extracting-and-filtering-data" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="task-2-extracting-and-filtering-data"><span class="header-section-number">4.1.2</span> Task 2: Extracting and Filtering Data</h3>
+<p>This task involves extracting specific data from the loaded GTAP database, with a focus on the <code>vmfp</code> header. You will learn how to filter this data for particular regions and activities. This exercise will assist you in becoming familiar with the format and structure of the data utilized in these packages.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Use R’s traditional sublist selector<code>$</code> to subset lists and [,,] to subset the array in its 3 dimensions.</li>
+<li>Note that all characters in the database are in lower case, including the name of the headers.</li>
+</ul>
+</div>
+</div>
+</div>
+<p>Extracting the <code>vmfp</code> header:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>vmfp <span class="ot">&lt;-</span> database<span class="sc">$</span>gtapdata<span class="sc">$</span>vmfp </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>vmfp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>, , reg = ssa
+
+       acts
+comm        food      mnfcs      svces
+  food  3053.641   847.5477   699.6063
+  mnfcs 4988.493 21711.2031 13755.7686
+  svces 1352.623  2573.5461  5244.4595
+
+, , reg = eu
+
+       acts
+comm         food     mnfcs     svces
+  food  106757.54  19543.31  21146.19
+  mnfcs  42000.44 729110.94 210368.31
+  svces  12873.86  67352.26 198928.09
+
+, , reg = row
+
+       acts
+comm         food      mnfcs     svces
+  food  132265.84   38923.74  30186.41
+  mnfcs  85475.67 1269135.12 430168.25
+  svces  21010.39   74416.02 211477.12</code></pre>
+</div>
+</div>
+<p>Filtering for <em>food</em> in <em>acts</em>:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>To filter an array, it helps to know the number and order of its dimensions, in the case of vmfp: <code>[comm,acts,reg]</code>.</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-4-1" class="code-annotation-target"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(vmfp)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-4-2" class="code-annotation-target"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(vmfp)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-4-3" class="code-annotation-target"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(vmfp)</span>
+<span id="annotated-cell-4-4"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset a list using $ and a array []</span></span>
+<span id="annotated-cell-4-5"><a href="#annotated-cell-4-5" aria-hidden="true" tabindex="-1"></a>vmfp_food <span class="ot">&lt;-</span> database<span class="sc">$</span>gtapdata<span class="sc">$</span>vmfp[,<span class="st">"food"</span>,]</span>
+<span id="annotated-cell-4-6"><a href="#annotated-cell-4-6" aria-hidden="true" tabindex="-1"></a>vmfp_food</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="1" data-code-annotation="1">Returns the total number of elements (values) in the array.</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="2" data-code-annotation="2">Returns the dimensions of the array, showing how many elements are in each dimension.</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="3" data-code-annotation="3">Return the names of each dimensions and its elements. It’s useful for understanding what each dimension represents.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 27
+[1] 3 3 3
+$comm
+[1] "food"  "mnfcs" "svces"
+
+$acts
+[1] "food"  "mnfcs" "svces"
+
+$reg
+[1] "ssa" "eu"  "row"
+
+       reg
+comm         ssa        eu       row
+  food  3053.641 106757.54 132265.84
+  mnfcs 4988.493  42000.44  85475.67
+  svces 1352.623  12873.86  21010.39</code></pre>
+</div>
+</div>
+</section>
+<section id="task-3-converting-data-for-analysis" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="task-3-converting-data-for-analysis"><span class="header-section-number">4.1.3</span> Task 3: Converting Data for Analysis</h3>
+<p>Here, you will convert the extracted array data into a <code>data.frame</code> format using base R. This conversion is essential for making the data more accessible and easier to analyze using various R functions and packages like <code>data.table</code>, <code>dplyr</code> and <code>tidyr.</code></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>vmfp_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame.table</span>(vmfp)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>vmfp_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-73d1023e468ffb18dd83" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-73d1023e468ffb18dd83">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27"],["food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces"],["food","food","food","mnfcs","mnfcs","mnfcs","svces","svces","svces","food","food","food","mnfcs","mnfcs","mnfcs","svces","svces","svces","food","food","food","mnfcs","mnfcs","mnfcs","svces","svces","svces"],["ssa","ssa","ssa","ssa","ssa","ssa","ssa","ssa","ssa","eu","eu","eu","eu","eu","eu","eu","eu","eu","row","row","row","row","row","row","row","row","row"],[3053.640869140625,4988.4931640625,1352.623413085938,847.5477294921875,21711.203125,2573.546142578125,699.6063232421875,13755.7685546875,5244.45947265625,106757.5390625,42000.4375,12873.859375,19543.310546875,729110.9375,67352.2578125,21146.185546875,210368.3125,198928.09375,132265.84375,85475.671875,21010.39453125,38923.7421875,1269135.125,74416.015625,30186.4140625,430168.25,211477.125]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comm<\/th>\n      <th>acts<\/th>\n      <th>reg<\/th>\n      <th>Freq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":4},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Arrays converted to data.frame through <code>as.data.frame.table()</code> function have <em>Freq</em> as the name of the column of numerical values. Keep this in mind when using this type of conversion.</p>
+</div>
+</div>
+</section>
+<section id="task-4-exploring-the-data" class="level3" data-number="4.1.4">
+<h3 data-number="4.1.4" class="anchored" data-anchor-id="task-4-exploring-the-data"><span class="header-section-number">4.1.4</span> Task 4: Exploring the data</h3>
+<p>There are many options for exploring these databases in R. This can be useful for building a descriptive analysis of the database, identifying patterns, etc.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Perhaps a bar chart using <code>barplot()</code> function would be a good option in this case.</p>
+</div>
+</div>
+</div>
+<p>2 dimensions static bar chart example:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  vmfp_food,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">rownames</span>(vmfp_food),</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">main=</span> <span class="st">"Imported purchases, by firms, at producers prices (million US$)"</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="roadmap_gtapinr_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="step-2-read-the-model" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="step-2-read-the-model"><span class="header-section-number">4.2</span> Step 2: Read the model</h2>
+<p>In this step, we will convert the <strong>GTAPv7</strong> model from the TABLO language into a format that R can understand. This is achieved through a process that interprets and translates different components of the model, statements like <em>Read</em>, <em>Set</em>, <em>Coefficient</em>, <em>Variable</em>, <em>Formula</em>, <em>Equation</em>, <em>Parameter</em>, <em>Mapping</em>, etc. Each category of commands is handled in a specific way to ensure they are correctly represented in R.<br>
+The correct labeling of each statement into its appropriate group is essential for the subsequent definition and construction of the matrix that will be inverted during the simulation. This precise organization is key to maintaining the integrity of the model’s structure and calculations as it transitions into the R environment.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tasks
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Set the path to the model’s TABLO file.</li>
+<li>Initialize a GEMModel object.</li>
+<li>Assign to this object the path to the model.</li>
+<li>Assign the GTAPv7 database to the model.</li>
+</ol>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-7-1" class="code-annotation-target"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a>tabloPath <span class="ot">&lt;-</span> <span class="st">"model</span><span class="sc">\\</span><span class="st">GTAPv7.tab"</span></span>
+<span id="annotated-cell-7-2"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> tabloToR<span class="sc">::</span>GEModel<span class="sc">$</span><span class="fu">new</span>()</span>
+<span id="annotated-cell-7-4"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-7-5" class="code-annotation-target"><a href="#annotated-cell-7-5" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span><span class="fu">loadTablo</span>(tabloPath)</span>
+<span id="annotated-cell-7-6"><a href="#annotated-cell-7-6" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-7-7" class="code-annotation-target"><a href="#annotated-cell-7-7" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span><span class="fu">loadData</span>(database)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="1" data-code-annotation="1">The location path for the <strong>GTAPv7</strong> model’s TABLO file.</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="3" data-code-annotation="2">Create a new instance of the <em>GEModel</em> class.</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="5" data-code-annotation="3">This step involves translating the model’s equations, formulas, mappings, and other commands into a syntax understandable by R. The translated model is then stored within the <code>model</code> object, which was initialized in the previous step.</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="7" data-code-annotation="4">Load the <code>database</code> read in the previews step.</span>
+</dd>
+</dl>
+</div>
+</div>
+</section>
+<section id="step-3-setup-the-closure-and-shocks" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="step-3-setup-the-closure-and-shocks"><span class="header-section-number">4.3</span> Step 3: Setup the closure and shocks</h2>
+<p>In this step, we focus on setting up the <strong>closure</strong> conditions and applying specific <strong>shocks</strong> to the model. Closure, what can be seen as the decision about which variables are exogenous and which are endogenous, is a critical aspect that determines its operational framework, influencing how the model reaches equilibrium and responds to external changes. It essentially sets the ‘rules of the game’ for the model, defining what is fixed and what is flexible within its economic environment. Once the closure are defined, we define the vectors of shocks, these are changes to the model’s inputs that simulate different scenarios, such as economic or policy changes.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tasks
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Defining exogenous variables.</li>
+<li>Setting all exogenous variables to zero.</li>
+<li>Apply an chosk of <code>5</code>% increase in productivity for the <code>food</code> activity in the <code>ssa</code> and <code>eu</code> regions.</li>
+</ol>
+</div>
+</div>
+<section id="task-1-identifying-exogenous-variables" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="task-1-identifying-exogenous-variables"><span class="header-section-number">4.3.1</span> Task 1: Identifying Exogenous Variables</h3>
+<p>In this task, you will create a character vector composed of exogenous variables. These are variables that are determined outside the model and are inputs to the model’s system.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>When defining exogenous variables, it’s important to ensure that they align with the variables used in your specific model version (GTAPv7 in this case). This list forms the basis for setting up the model’s initial conditions and applying shocks later.</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>exogenous_variables <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'afall'</span>, <span class="st">'afcom'</span>, <span class="st">'afeall'</span>, <span class="st">'afecom'</span>, <span class="st">'afereg'</span>, <span class="st">'afesec'</span>, <span class="st">'afreg'</span>, <span class="st">'afsec'</span>,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">'aintall'</span>, <span class="st">'aintreg'</span>, <span class="st">'aintsec'</span>, <span class="st">'ams'</span>, <span class="st">'aoall'</span>, <span class="st">'aoreg'</span>, <span class="st">'aosec'</span>, <span class="st">'atall'</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">'atd'</span>, <span class="st">'atf'</span>, <span class="st">'atm'</span>, <span class="st">'ats'</span>, <span class="st">'au'</span>, <span class="st">'avaall'</span>, <span class="st">'avareg'</span>, <span class="st">'avasec'</span>, <span class="st">'cgdslack'</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">'dpgov'</span>, <span class="st">'dppriv'</span>, <span class="st">'dpsave'</span>, <span class="st">'endwslack'</span>, <span class="st">'incomeslack'</span>, <span class="st">'pfactwld'</span>, <span class="st">'pop'</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">'profitslack'</span>, <span class="st">'psaveslack'</span>, <span class="st">'qe'</span>, <span class="st">'qesf'</span>, <span class="st">'tfd'</span>, <span class="st">'tfe'</span>, <span class="st">'tfm'</span>, <span class="st">'tgd'</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">'tgm'</span>, <span class="st">'tid'</span>, <span class="st">'tim'</span>, <span class="st">'tinc'</span>, <span class="st">'tm'</span>, <span class="st">'tms'</span>, <span class="st">'to'</span>, <span class="st">'tpdall'</span>, <span class="st">'tpmall'</span>, <span class="st">'tpreg'</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">'tradslack'</span>, <span class="st">'tx'</span>, <span class="st">'txs'</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="task-2-initializing-model-variables" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="task-2-initializing-model-variables"><span class="header-section-number">4.3.2</span> Task 2: Initializing Model Variables</h3>
+<p>Here, you’ll assign the value <code>0</code> to each of these variables in <code>model$variableValues</code>. This step is crucial for preparing the model’s baseline before applying any shocks.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Using a <a href="https://rstudio.github.io/r-manuals/r-intro/Loops-and-conditional-execution.html#repetitive-execution-for-loops-repeat-and-while">for()</a> loop to iterate over the list of exogenous variables is an efficient way to assign values to them.</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (var <span class="cf">in</span> exogenous_variables) {</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  model<span class="sc">$</span>variableValues[[var]][] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-0c125226ab9d40d3d79d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-0c125226ab9d40d3d79d">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198","199","200","201","202","203","204","205","206","207","208","209","210","211","212","213","214","215","216","217","218","219","220","221","222","223","224","225","226","227","228","229","230","231","232","233","234","235","236","237","238","239","240","241","242","243","244","245","246","247","248","249","250","251","252","253","254","255","256","257","258","259","260","261","262","263"],["pds","qfd","pms","qfm","pfd","pfm","pes","qes","peb","qfe","pfe","ps","qca","pca","qgd","qgm","pgd","pgm","qpd","qpm","ppd","ppm","qid","qim","pid","pim","psave","qsave","pinv","kb","qxs","pfob","pcif","pmds","qst","y","pop","pgov","yg","ug","ppriv","yp","uepriv","up","to","tinc","endwslack","qms","globalcgds","pcgdswld","po","qo","ao","pint","qint","aint","pva","qva","ava","pfa","qfa","afa","afe","profitslack","aosec","aoreg","aoall","afcom","afsec","afreg","afall","avasec","avareg","avaall","afecom","afesec","afereg","afeall","aintsec","aintreg","aintall","pb","qc","fincome","incomeslack","del_indtaxr","uelas","dpsave","dpgov","dppriv","dpav","p","au","dpsum","u","ppa","qpa","pga","qga","pia","qia","qinv","ams","ptrans","qtmfsd","pt","qtm","atmfsd","atm","atf","ats","atd","atall","tx","txs","tm","tms","pr","qds","tradslack","tfd","tfm","tpd","tpm","tgd","tgm","tid","tim","tpdall","tpmall","tpreg","pe","qe","qesf","tfe","ke","rore","rorc","rental","rorg","cgdslack","expand","psaveslack","del_taxrout","del_taxrfu","del_taxriu","del_taxrpc","del_taxrgc","del_taxric","del_taxrexp","del_taxrimp","del_taxrinc","del_ttaxr","pfactor","pfactwld","walras_sup","walras_dem","walraslack","vxwfob","vmwcif","vxwreg","vmwreg","pfactreal","pebfactreal","pefactreal","psw","pdw","tot","vgdp","pgdp","qgdp","compvalad","pxw","vxwcom","vxwwld","vmwcom","valuew","valuewu","pxwreg","pxwcom","pxwwld","pmw","pmwreg","pmwcom","pw","pwu","qxw","qxwreg","qxwcom","qxwwld","qmw","qmwreg","qmwcom","qow","qowu","del_tbalc","del_tbal","ywld","del_tbalry","pm_cr","c1_cr","c2_cr","c3_cr","c1_r","c2_r","c3_r","tot2","uelasev","ueprivev","ugev","upev","qsaveev","yev","ypev","ygev","qpev","ysaveev","dpavev","ev","wev","ev_alt","wev_alt","cntdpar","cntpop","cntqor","cntqo","cntqca","cntqe","cntqea","cntqfer","cntqfeer","cntqfe","cntqfr","cntqfm","cntqfd","cntqpm","cntqpd","cntqpr","cntqia","cntqim","cntqid","cntqgr","cntqgm","cntqgd","cntqxsr","cntqxs","cntqmsr","cntqms","cntalleffr","cntalleffcr","cnttotr","cntpinv","cntendwr","cntendw","cnttechr","cnttech_ao","cnttech_afe","cnttech_ava","cnttech_aint","cnttech_af","cnttech_atmfsd","cnttech_ams","cntkb"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,null,null,null,null,null,null,null,0,0,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,null,null,null,0,null,null,0,0,0,null,null,0,null,null,null,null,null,null,null,null,null,0,null,null,null,null,null,0,0,0,0,0,0,0,0,0,null,null,0,0,0,null,null,0,0,0,0,0,0,0,null,0,0,0,null,null,null,null,null,0,null,0,null,null,null,null,null,null,null,null,null,null,null,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="task-3-applying-shocks-to-the-model" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="task-3-applying-shocks-to-the-model"><span class="header-section-number">4.3.3</span> Task 3: Applying Shocks to the Model</h3>
+<p>In this task, you will apply a specific shock to the model. For example, a <code>5</code>% increase in the total productivity change variable (<code>aoall</code>) for the <code>food</code> activity in the <code>ssa</code> and <code>eu</code> regions.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You can adapt using an similar approach to this previous example: <code>list_data$Array["Wheat", "Farming", "Low"]</code></p>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>variableValues<span class="sc">$</span>aoall[<span class="st">"food"</span>, <span class="fu">c</span>(<span class="st">"ssa"</span>, <span class="st">"eu"</span>)] <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>variableValues<span class="sc">$</span>aoall</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       reg
+acts    ssa eu row
+  food   10 10   0
+  mnfcs   0  0   0
+  svces   0  0   0</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="run-the-model" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="run-the-model"><span class="header-section-number">4.4</span> Run the model</h2>
+<p>At this stage of the process, we are ready to execute the model, bringing together all the elements we’ve prepared: the input database, closure conditions, and the shocks we’ve defined. This step involves solving the model’s matrix, which is a representation of the equations from the model. The model’s execution not only solves the matrix but also carries out the calculations defined in the model’s formulas. Additionally, for GTAPv7, post-simulation processes are conducted, which involve further calculations based on the model’s output.</p>
+<p>Running with 1 iteration and 1 step (<em>Johansen</em> method).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span><span class="fu">solveModel</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">iter =</span> <span class="dv">1</span>,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">steps =</span> <span class="dv">1</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Running with 3 iteration and multiple steps.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span><span class="fu">solveModel</span>(</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">iter =</span> <span class="dv">3</span>,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">steps =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Results for percentage change in total commodity supply by region (<code>qc</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>outputData<span class="sc">$</span>qc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       reg
+comm          ssa         eu         row
+  food  4.9577805  8.5266022 -2.23012678
+  mnfcs 0.6236865 -0.8850531  0.49274290
+  svces 1.6287317  0.4097268  0.07828056</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  outputData<span class="sc">$</span>qc,</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">beside =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">rownames</span>(outputData<span class="sc">$</span>qc),</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main=</span> <span class="st">"Total commodity supply by region (%)"</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="roadmap_gtapinr_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="extra-content-post-sim-analisys" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Extra content: Post Sim analisys</h1>
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- devtools::install_github('tsimonato/gtaptools', force = TRUE) -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- #| eval: !expr knitr::is_html_output() -->
+<!-- #| code-fold: true -->
+<!-- #| code-summary: "Show the code" -->
+<!-- gtaptools::plot_bars( -->
+<!--   vmfp, -->
+<!--   x = "comm", -->
+<!--   y = "Freq", -->
+<!--   fill = "acts", -->
+<!--   facet = "reg" -->
+<!-- ) -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- #| echo: false -->
+<!-- quarto::quarto_render("roadmap_gtapinr.qmd", output_format = "all") -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- #| code-fold: true -->
+<!-- #| code-summary: "Show the code" -->
+<!-- model = tabloToR::*GEModel*$new() -->
+<!-- # You need to have the model, such as gtap.tab  -->
+<!-- model$loadTablo('gtap.tab') -->
+<!-- # You need to get the data files .har -->
+<!-- data = list( -->
+<!--   gtapsets = HARr::read_har('gsdgset.har'), -->
+<!--   gtapparm = HARr::read_har('gsdgpar.har'), -->
+<!--   gtapdata = HARr::read_har('gsdgdat.har') -->
+<!-- ) -->
+<!-- # Initialize the model object -->
+<!-- model$loadData(data) -->
+<!-- # Set up the closure -->
+<!-- for(var in c("afall", -->
+<!--       "afcom", -->
+<!--       "afeall", -->
+<!--       "afecom", -->
+<!--       "afereg", -->
+<!--       "afesec", -->
+<!--       "afreg", -->
+<!--       "afsec", -->
+<!--       "ams", -->
+<!--       "aoall", -->
+<!--       "aoreg", -->
+<!--       "aosec", -->
+<!--       "atall", -->
+<!--       "atd", -->
+<!--       "atf", -->
+<!--       "atm", -->
+<!--       "ats", -->
+<!--       "au", -->
+<!--       "avaall", -->
+<!--       "avareg", -->
+<!--       "avasec", -->
+<!--       "cgdslack", -->
+<!--       "dpgov", -->
+<!--       "dppriv", -->
+<!--       "dpsave", -->
+<!--       "endwslack", -->
+<!--       "incomeslack", -->
+<!--       "pfactwld", -->
+<!--       "pop", -->
+<!--       "profitslack", -->
+<!--       "psaveslack", -->
+<!--       "tf", -->
+<!--       "tfd", -->
+<!--       "tfm", -->
+<!--       "tgd", -->
+<!--       "tgm", -->
+<!--       "tm", -->
+<!--       "tms", -->
+<!--       "to", -->
+<!--       "tpd", -->
+<!--       "tpm", -->
+<!--       "tp", -->
+<!--       "tradslack", -->
+<!--       "tx", -->
+<!--       "txs")){ -->
+<!--   model$variableValues[[var]][]=0 -->
+<!-- } -->
+<!-- model$variableValues$qo[model$data$endw_comm,] = 0 -->
+<!-- # Specify sets for shocks  -->
+<!-- ag= c("grains", "v_f", "osd", "c_b", "pfb", "ocr", "ctl", "oap", "rmk", "wol") -->
+<!-- model$variableValues$aoall[ag,c("northam")] = 1 -->
+<!-- agFood = c("grains", "v_f", "osd", "c_b", "pfb", "ocr", "ctl", "oap", "rmk", "wol", "food") -->
+<!-- model$variableValues$tms[agFood,,c("northam")] = (model$data$viws[agFood,,c("northam")] / model$data$vims[agFood,,c("northam")] -1)*100 -->
+<!-- # Run the model -->
+<!-- model$solveModel(iter = 3,steps = c(1,3)) -->
+<!-- # View the results (variable ev--welfare) -->
+<!-- model$data$ev -->
+<!-- ``` -->
+<!-- ## Advanced Features and Tips (15 minutes) -->
+<!-- ::: {.callout-note} -->
+<!-- - Advanced functions overview -->
+<!-- - Best practices and tips -->
+<!-- ::: -->
+<!-- ::: {.callout-caution} -->
+<!-- Be cautious with advanced features; they may [mention any complexities or risks]. -->
+<!-- ::: -->
+</section>
+<section id="qa-and-discussion" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Q&amp;A and Discussion</h1>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Open floor for questions</li>
+<li>Group discussion on applications</li>
+</ul>
+</div>
+</div>
+<!-- ## Closing Remarks and Resources (5 minutes) -->
+<!-- ::: {.callout-note} -->
+<!-- - Summary of key points -->
+<!-- - Additional resources for further learning -->
+<!-- ::: -->
+<!-- # Detailed Content -->
+<!-- [Here, you can expand each section with detailed content, code snippets, and data examples. Add explanations, R code blocks for demonstrations, and placeholders for interactive exercises.] -->
+<!-- # Conclusion -->
+<!-- [Conclude the workshop with key takeaways, encourage ongoing learning and exploration, and thank the participants for their engagement.] -->
+<!-- # Appendix -->
+<!-- - Additional resources -->
+<!-- - References -->
+<!-- - Contact information for follow-up questions -->
+<!-- --- -->
+</section>
+
+
+<div id="quarto-appendix" class="default"><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><a href="https://jgea.org/ojs/index.php/jgea/article/view/47">Corong, E. L., Hertel, T. W., McDougall, R., Tsigas, M. E., &amp; Van Der Mensbrugghe, D. (2017). The standard GTAP model, version 7. Journal of Global Economic Analysis, 2(1), 1-119.</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://www.gtap.agecon.purdue.edu/resources/download/10028.pdf">M. Ivanic, The GTAP model in R, 2020, 23rd Annual Conference on Global Economic Analysis.</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
