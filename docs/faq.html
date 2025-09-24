@@ -74,11 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body>
+<body class="fullcontent">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="faq.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></div>
+
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -203,13 +202,9 @@ Answer
 </div>
 </div>
 </div>
-<hr>
 </section>
-</section>
-<section id="requirements-setup" class="level3">
-<h3 class="anchored" data-anchor-id="requirements-setup">Requirements &amp; Setup</h3>
-<section id="what-software-setup-do-you-recommend-before-starting" class="level5">
-<h5 class="anchored" data-anchor-id="what-software-setup-do-you-recommend-before-starting">What software setup do you recommend before starting?</h5>
+<section id="what-does-gtap-in-r-not-do-or-where-are-its-current-limitations" class="level5">
+<h5 class="anchored" data-anchor-id="what-does-gtap-in-r-not-do-or-where-are-its-current-limitations">What does GTAP in R not do or where are its current limitations?</h5>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -222,13 +217,17 @@ Answer
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>You should use a recent version of R and RStudio on Windows, macOS, or Linux, and you should be able to install packages from GitHub. The course’s “Setting Up” section guides you through installing dependencies, configuring your working directory, and verifying that the model files and database are discoverable by R. Please follow that section for exact commands and example scripts. Detailed instructions are in the <a href="https://tsimonato.github.io/GTAPinR_Course/#setting-up">https://tsimonato.github.io/GTAPinR_Course/#setting-up</a></p>
+<p>GTAPinR does not currently include a visual post-processing tool comparable to <a href="https://www.copsmodels.com/gpmanual.htm#gpd8.6">AnalyseGE</a> from the GEMPACK suite, which allows users to decompose results (variables, coefficients, equations) into natural parts interactively. GTAPinR has also not been designed to deliver the same execution performance as dedicated solvers like <a href="https://www.copsmodels.com/gempack.htm">GEMPACK</a> or <a href="https://www.gams.com/">GAMS</a>, especially for large-scale or highly disaggregated models. Especially when model size increases, the runtime in R (with HARr/tabloToR) will generally be slower than in those highly optimized, compiled solver environments. <a href="https://tsimonato.github.io/GTAPinR_Course/#setting-up">https://tsimonato.github.io/GTAPinR_Course/#setting-up</a></p>
 </div>
 </div>
 </div>
+<hr>
 </section>
-<section id="how-do-i-install-the-key-packages" class="level5">
-<h5 class="anchored" data-anchor-id="how-do-i-install-the-key-packages">How do I install the key packages?</h5>
+</section>
+<section id="requirements-setup" class="level3">
+<h3 class="anchored" data-anchor-id="requirements-setup">Requirements &amp; Setup</h3>
+<section id="what-software-setup-do-you-recommend-before-starting" class="level5">
+<h5 class="anchored" data-anchor-id="what-software-setup-do-you-recommend-before-starting">What software setup do you recommend before starting?</h5>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -240,6 +239,25 @@ Answer
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You should use a recent version of R and RStudio on Windows, macOS, or Linux, and you should be able to install packages from GitHub. The course’s “Setting Up” section guides you through installing dependencies, configuring your working directory, and verifying that the model files and database are discoverable by R. Please follow that section for exact commands and example scripts. Detailed instructions are in the <a href="https://tsimonato.github.io/GTAPinR_Course/#setting-up">https://tsimonato.github.io/GTAPinR_Course/#setting-up</a></p>
+</div>
+</div>
+</div>
+</section>
+<section id="how-do-i-install-the-key-packages" class="level5">
+<h5 class="anchored" data-anchor-id="how-do-i-install-the-key-packages">How do I install the key packages?</h5>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>You can install the packages using <code>devtools::install_github()</code>. For example:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span>
@@ -257,25 +275,6 @@ Answer
 <section id="which-data-structures-in-r-will-i-actually-use-for-gtap-work" class="level5">
 <h5 class="anchored" data-anchor-id="which-data-structures-in-r-will-i-actually-use-for-gtap-work">Which data structures in R will I actually use for GTAP work?</h5>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>You will primarily use data frames for tabular manipulation, arrays for multi-dimensional numeric information that mirrors GTAP headers and solution blocks, and lists that act as containers for these objects. Lists are the natural way to store the collection of headers loaded from a header-array file, whereas arrays preserve dimensional structure for efficient slicing and aggregation. The “Data Structures in R” portion of the course shows concrete indexing patterns and transformations. Examples are provided in the <a href="https://tsimonato.github.io/GTAPinR_Course/#exploring-the-data">https://tsimonato.github.io/GTAPinR_Course/#exploring-the-data</a></p>
-</div>
-</div>
-</div>
-</section>
-<section id="how-do-i-read-gtap-.har-and-.sl4-files-into-r" class="level5">
-<h5 class="anchored" data-anchor-id="how-do-i-read-gtap-.har-and-.sl4-files-into-r">How do I read GTAP .har and .sl4 files into R?</h5>
-<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -286,6 +285,25 @@ Answer
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You will primarily use data frames for tabular manipulation, arrays for multi-dimensional numeric information that mirrors GTAP headers and solution blocks, and lists that act as containers for these objects. Lists are the natural way to store the collection of headers loaded from a header-array file, whereas arrays preserve dimensional structure for efficient slicing and aggregation. The “Data Structures in R” portion of the course shows concrete indexing patterns and transformations. Examples are provided in the <a href="https://tsimonato.github.io/GTAPinR_Course/#exploring-the-data">https://tsimonato.github.io/GTAPinR_Course/#exploring-the-data</a></p>
+</div>
+</div>
+</div>
+</section>
+<section id="how-do-i-read-gtap-.har-and-.sl4-files-into-r" class="level5">
+<h5 class="anchored" data-anchor-id="how-do-i-read-gtap-.har-and-.sl4-files-into-r">How do I read GTAP .har and .sl4 files into R?</h5>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>You can load header-array files using <code>HARr::read_har("path/to/file.har")</code>, which returns a list whose elements correspond to the headers in the file, with numeric headers stored as arrays. Solution files can be read similarly. After loading, you can call <code>summary()</code> on the returned object to list available headers, access a specific header with the dollar operator, and subset numeric arrays with standard R indexing. The course includes runnable examples. See details in the <a href="https://tsimonato.github.io/GTAPinR_Course/#loading-the-gtap-data-files">https://tsimonato.github.io/GTAPinR_Course/#loading-the-gtap-data-files</a></p>
 </div>
@@ -299,25 +317,6 @@ Answer
 <section id="how-do-i-explore-and-convert-arrays-for-analysis" class="level5">
 <h5 class="anchored" data-anchor-id="how-do-i-explore-and-convert-arrays-for-analysis">How do I explore and convert arrays for analysis?</h5>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>You can use <code>summary()</code> to inspect headers, extract arrays with <code>$</code>, and subset with standard R indexing. To convert arrays for plotting, use <code>as.data.frame.table()</code>. This produces a tidy format suitable for filtering and graphing. The course shows practical examples and how to integrate with ggplot2 or ggalluvial for visualization. Examples are shown in the <a href="https://tsimonato.github.io/GTAPinR_Course/#exploring-the-data">https://tsimonato.github.io/GTAPinR_Course/#exploring-the-data</a></p>
-</div>
-</div>
-</div>
-</section>
-<section id="how-do-i-write-new-.har-files-from-r" class="level5">
-<h5 class="anchored" data-anchor-id="how-do-i-write-new-.har-files-from-r">How do I write new .har files from R?</h5>
-<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -328,6 +327,25 @@ Answer
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You can use <code>summary()</code> to inspect headers, extract arrays with <code>$</code>, and subset with standard R indexing. To convert arrays for plotting, use <code>as.data.frame.table()</code>. This produces a tidy format suitable for filtering and graphing. The course shows practical examples and how to integrate with ggplot2 or ggalluvial for visualization. Examples are shown in the <a href="https://tsimonato.github.io/GTAPinR_Course/#exploring-the-data">https://tsimonato.github.io/GTAPinR_Course/#exploring-the-data</a></p>
+</div>
+</div>
+</div>
+</section>
+<section id="how-do-i-write-new-.har-files-from-r" class="level5">
+<h5 class="anchored" data-anchor-id="how-do-i-write-new-.har-files-from-r">How do I write new .har files from R?</h5>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>You can use the function <code>HARr::write_har()</code> to create new header-array files. Sets should be stored as character vectors, numeric data as arrays with properly defined dimensions, and each header should include a short code and a long description. The course materials demonstrate how to prepare and validate these objects before writing. See instructions in the <a href="https://tsimonato.github.io/GTAPinR_Course/#writing-data">https://tsimonato.github.io/GTAPinR_Course/#writing-data</a></p>
 </div>
@@ -341,25 +359,6 @@ Answer
 <section id="what-is-a-gemodel-object-and-why-do-i-need-it" class="level5">
 <h5 class="anchored" data-anchor-id="what-is-a-gemodel-object-and-why-do-i-need-it">What is a GEModel object and why do I need it?</h5>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>The GEModel object is the container for a single experiment. It holds the parsed TABLO model, the database built with <code>HARr::read_har</code>, the closure, shocks, the solver, and the results. The course demonstrates how to create and use GEModel step by step. See model initialization in the <a href="https://tsimonato.github.io/GTAPinR_Course/#initializing-the-gtap-model">https://tsimonato.github.io/GTAPinR_Course/#initializing-the-gtap-model</a></p>
-</div>
-</div>
-</div>
-</section>
-<section id="what-is-a-closure-and-how-do-i-specify-it" class="level5">
-<h5 class="anchored" data-anchor-id="what-is-a-closure-and-how-do-i-specify-it">What is a closure and how do I specify it?</h5>
-<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -371,13 +370,13 @@ Answer
 </div>
 <div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The closure defines which variables are exogenous and which are endogenous. In tabloToR, you set exogenous variables and initialize their shocks, typically starting from zero. The course provides examples of closures and explains how to switch them depending on your research scenario. See closure examples in the <a href="https://tsimonato.github.io/GTAPinR_Course/#setting-up-closure-and-shocks">https://tsimonato.github.io/GTAPinR_Course/#setting-up-closure-and-shocks</a></p>
+<p>The GEModel object is the container for a single experiment. It holds the parsed TABLO model, the database built with <code>HARr::read_har</code>, the closure, shocks, the solver, and the results. The course demonstrates how to create and use GEModel step by step. See model initialization in the <a href="https://tsimonato.github.io/GTAPinR_Course/#initializing-the-gtap-model">https://tsimonato.github.io/GTAPinR_Course/#initializing-the-gtap-model</a></p>
 </div>
 </div>
 </div>
 </section>
-<section id="how-do-i-apply-a-policy-shock-and-solve-the-model" class="level5">
-<h5 class="anchored" data-anchor-id="how-do-i-apply-a-policy-shock-and-solve-the-model">How do I apply a policy shock and solve the model?</h5>
+<section id="what-is-a-closure-and-how-do-i-specify-it" class="level5">
+<h5 class="anchored" data-anchor-id="what-is-a-closure-and-how-do-i-specify-it">What is a closure and how do I specify it?</h5>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -390,13 +389,13 @@ Answer
 </div>
 <div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>After loading the TABLO file and database into a GEModel and defining a closure, you can assign a value to an exogenous variable as a shock and run the solver. For example, you could model a productivity increase by setting the relevant variable exogenous, applying a positive change, and then calling the solve function. The course demonstrates this with hands-on exercises. Detailed workflow is in the <a href="https://tsimonato.github.io/GTAPinR_Course/#setting-up-closure-and-shocks">https://tsimonato.github.io/GTAPinR_Course/#setting-up-closure-and-shocks</a></p>
+<p>The closure defines which variables are exogenous and which are endogenous. In tabloToR, you set exogenous variables and initialize their shocks, typically starting from zero. The course provides examples of closures and explains how to switch them depending on your research scenario. See closure examples in the <a href="https://tsimonato.github.io/GTAPinR_Course/#setting-up-closure-and-shocks">https://tsimonato.github.io/GTAPinR_Course/#setting-up-closure-and-shocks</a></p>
 </div>
 </div>
 </div>
 </section>
-<section id="where-are-results-stored-and-how-do-i-save-them" class="level5">
-<h5 class="anchored" data-anchor-id="where-are-results-stored-and-how-do-i-save-them">Where are results stored and how do I save them?</h5>
+<section id="how-do-i-apply-a-policy-shock-and-solve-the-model" class="level5">
+<h5 class="anchored" data-anchor-id="how-do-i-apply-a-policy-shock-and-solve-the-model">How do I apply a policy shock and solve the model?</h5>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -408,6 +407,25 @@ Answer
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>After loading the TABLO file and database into a GEModel and defining a closure, you can assign a value to an exogenous variable as a shock and run the solver. For example, you could model a productivity increase by setting the relevant variable exogenous, applying a positive change, and then calling the solve function. The course demonstrates this with hands-on exercises. Detailed workflow is in the <a href="https://tsimonato.github.io/GTAPinR_Course/#setting-up-closure-and-shocks">https://tsimonato.github.io/GTAPinR_Course/#setting-up-closure-and-shocks</a></p>
+</div>
+</div>
+</div>
+</section>
+<section id="where-are-results-stored-and-how-do-i-save-them" class="level5">
+<h5 class="anchored" data-anchor-id="where-are-results-stored-and-how-do-i-save-them">Where are results stored and how do I save them?</h5>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>After solving, results are stored in the outputData list inside the GEModel. You can inspect updated arrays directly or convert them to data frames for plotting. To persist results, you can use <code>saveRDS()</code> and reload them later with <code>readRDS()</code>. The course shows practical examples of saving, reloading, and comparing results across runs. See outputs in the <a href="https://tsimonato.github.io/GTAPinR_Course/#solving-and-interpreting-the-results">https://tsimonato.github.io/GTAPinR_Course/#solving-and-interpreting-the-results</a></p>
 </div>
@@ -421,25 +439,6 @@ Answer
 <section id="why-am-i-getting-an-error-when-installing-packages-from-github" class="level5">
 <h5 class="anchored" data-anchor-id="why-am-i-getting-an-error-when-installing-packages-from-github">Why am I getting an error when installing packages from GitHub?</h5>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Installation errors often stem from missing system build tools (Rtools on Windows, Command Line Tools on macOS), firewall or proxy restrictions, or not restarting R after installing toolchains. The course’s setup section provides guidance for resolving these issues.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="why-cant-i-open-a-.har-file-that-i-am-certain-exists" class="level5">
-<h5 class="anchored" data-anchor-id="why-cant-i-open-a-.har-file-that-i-am-certain-exists">Why can’t I open a .har file that I am certain exists?</h5>
-<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -451,13 +450,13 @@ Answer
 </div>
 <div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The most common cause is a mismatch in working directory or file path. You should check the current working directory with <code>getwd()</code> and confirm the path. Encoding issues in header names may also cause failures. The course offers methods to test file paths and confirm encoding. Check file handling in the <a href="https://tsimonato.github.io/GTAPinR_Course/#loading-the-gtap-data-files">https://tsimonato.github.io/GTAPinR_Course/#loading-the-gtap-data-files</a></p>
+<p>If you encounter an error when installing a package from GitHub, a good first step is to check the package’s built-in documentation directly in R using the help command. For example, you can type ?devtools in the R console to see installation notes, usage instructions, and troubleshooting tips provided by the package authors. Additionally, ensure that you have the latest version of R and RStudio, as well as the necessary system dependencies for building packages from source. If the problem persists, consider searching online forums or the package’s GitHub issues page for similar problems and solutions. The course provides additional guidance on common installation issues. See more in the <a href="https://tsimonato.github.io/GTAPinR_Course/#setting-up">https://tsimonato.github.io/GTAPinR_Course/#setting-up</a></p>
 </div>
 </div>
 </div>
 </section>
-<section id="why-does-tablotor-fail-to-solve-or-complain-about-variables-not-found" class="level5">
-<h5 class="anchored" data-anchor-id="why-does-tablotor-fail-to-solve-or-complain-about-variables-not-found">Why does tabloToR fail to solve or complain about variables not found?</h5>
+<section id="why-cant-i-open-a-.har-file-that-i-am-certain-exists" class="level5">
+<h5 class="anchored" data-anchor-id="why-cant-i-open-a-.har-file-that-i-am-certain-exists">Why can’t I open a .har file that I am certain exists?</h5>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -469,6 +468,25 @@ Answer
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The most common cause is a mismatch in working directory or file path. You should check the current working directory with <code>getwd()</code> and confirm the path. Encoding issues in header names may also cause failures. The course offers methods to test file paths and confirm encoding. Check file handling in the <a href="https://tsimonato.github.io/GTAPinR_Course/#loading-the-gtap-data-files">https://tsimonato.github.io/GTAPinR_Course/#loading-the-gtap-data-files</a></p>
+</div>
+</div>
+</div>
+</section>
+<section id="why-does-tablotor-fail-to-solve-or-complain-about-variables-not-found" class="level5">
+<h5 class="anchored" data-anchor-id="why-does-tablotor-fail-to-solve-or-complain-about-variables-not-found">Why does tabloToR fail to solve or complain about variables not found?</h5>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This typically means that the closure is inconsistent with the TABLO file, or a shock was applied to a variable that was not defined as exogenous. Re-check variable names in the TABLO file and ensure that your closure aligns with your shocks. The course includes troubleshooting checklists for these cases. See guidance in the <a href="https://tsimonato.github.io/GTAPinR_Course/#setting-up-closure-and-shocks">https://tsimonato.github.io/GTAPinR_Course/#setting-up-closure-and-shocks</a></p>
 </div>
@@ -482,25 +500,6 @@ Answer
 <section id="can-i-compare-tablotor-results-with-gempack" class="level5">
 <h5 class="anchored" data-anchor-id="can-i-compare-tablotor-results-with-gempack">Can I compare tabloToR results with GEMPACK?</h5>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-17" class="callout-17-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Yes. You can read GEMPACK .sl4 files using HARr, convert them to data frames, and compare directly with tabloToR output using the same conversion. When the same closure and solution method are applied, the results are highly comparable. The course illustrates this process and highlights small differences you may encounter. Comparison examples are provided in the <a href="https://tsimonato.github.io/GTAPinR_Course/#solving-and-interpreting-the-results">https://tsimonato.github.io/GTAPinR_Course/#solving-and-interpreting-the-results</a></p>
-</div>
-</div>
-</div>
-</section>
-<section id="can-i-extend-the-workflow-to-baselines-or-regional-models" class="level5">
-<h5 class="anchored" data-anchor-id="can-i-extend-the-workflow-to-baselines-or-regional-models">Can I extend the workflow to baselines or regional models?</h5>
-<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -511,6 +510,25 @@ Answer
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Yes. You can read GEMPACK .sl4 files using HARr, convert them to data frames, and compare directly with tabloToR output using the same conversion. When the same closure and solution method are applied, the results are highly comparable. The course illustrates this process and highlights small differences you may encounter. Comparison examples are provided in the <a href="https://tsimonato.github.io/GTAPinR_Course/#solving-and-interpreting-the-results">https://tsimonato.github.io/GTAPinR_Course/#solving-and-interpreting-the-results</a></p>
+</div>
+</div>
+</div>
+</section>
+<section id="can-i-extend-the-workflow-to-baselines-or-regional-models" class="level5">
+<h5 class="anchored" data-anchor-id="can-i-extend-the-workflow-to-baselines-or-regional-models">Can I extend the workflow to baselines or regional models?</h5>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The package has been developed and tested specifically with the standard GTAP version 7 model. While it is technically possible that the workflow could be adapted for other models or for extensions such as baseline construction and regional disaggregation, these uses have not been the focus of development and have not been systematically tested. Users attempting such applications should be aware of these limitations.</p>
 </div>
