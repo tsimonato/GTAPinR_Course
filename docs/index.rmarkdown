@@ -1,0 +1,915 @@
+---
+title: "GTAPinR Course"
+authors:
+  - name: "Thiago Simonato"
+    affiliation: "Research Economist, Center for Global Trade Analysis, Purdue University"
+  - name: "Uris Lantz Baldos"
+    affiliation: "Research Associate Professor, Center for Global Trade Analysis, Department of Agricultural Economics, Purdue University"
+date: '2025-10-02'
+toc-title: "Course Outline"
+format:
+  html:
+    toc: true
+    toc-depth: 6
+    number-sections: true
+    highlight-style: breeze
+    theme:
+      light: spacelab
+      dark: darkly
+editor_options: 
+  chunk_output_type: console
+---
+
+```{css}
+#| echo: false
+p {
+  text-align: justify
+}
+```
+
+
+
+\newpage
+
+# Getting Started with GTAPinR
+
+This course introduces new tools to work with [GTAP](https://www.gtap.agecon.purdue.edu/) model and database in [R](https://www.r-project.org/). It provides practical hands-on experience starting with the installation of the required packages in R, viewing *.har* files, setting up and running the standard GTAP model version 7[^1] in R and exploring model outputs.
+
+[^1]: [Corong, E. L., Hertel, T. W., McDougall, R., Tsigas, M. E., & van der Mensbrugghe, D. (2017). The Standard GTAP Model, Version 7. Journal of Global Economic Analysis, 2(1), 1–119. https://doi.org/10.21642/JGEA.020101AF](https://doi.org/10.21642/JGEA.020101AF)
+
+The key packages used in the course includes:
+
+1)  [HARr](https://github.com/USDA-ERS/MTED-HARr) package, which serves as a bridge between the databases and the R language by reading and writing *.har* files adopted in the [GEMPACK](https://www.copsmodels.com/gpmanual.htm#gpd5.8.1) suite.
+
+2)  [TabloToR](https://github.com/tsimonato/MTED-TabloToR) package allows users to run GTAP simulations by reading in and compiling the GEMPACK-style TABLO *.tab* files and solving it within the R environment[^2].
+
+[^2]: [Ivanic, M. (2023). GEMPACK simulations in R: A demonstration of running the GTAP model and processing its results entirely in R using packages HARr and tabloToR. Journal of Global Economic Analysis, 8(1). https://doi.org/10.21642/JGEA.080101AF](https://doi.org/10.21642/JGEA.080101AF)
+
+The diagram below summarizes the basic workflow for running GTAP in R. It starts with initializing the model, followed by configuring and reading in the database, model translation from TABLO to R, closure setup, and shock application. The process concludes with running the model to viewing results.
+
+
+
+```{mermaid}
+%%| fig-width: 5.5
+flowchart TD
+    A[Initialize] -->|"tabloToR::GEModel$new()"| EM{Model Outline}
+    EM --> |"model$loadTablo(gtapv7.tab)"| B{Gtapv7 Model}
+    EM --> |"model$loadData(database)"| B
+    H[Setup closure] -->|"exogenous_variables <- 0"| B
+    Z[Setup shocks] -->|"shock_variables <- X"| B
+    B --> |"model$solveModel()"| C[Get the results]
+    
+```
+
+
+
+## Setting Up
+
+a)  Make sure that you have **R** installed on your computer. You can download the latest version of R from the [Comprehensive R Archive Network (CRAN)](https://www.r-project.org/).
+
+b)  After installing R, install **RStudio**, a powerful and user-friendly integrated development environment for R. RStudio can be downloaded from the [official RStudio website](https://posit.co/download/rstudio-desktop/).
+
+c)  Open the **roadmap_gtapinr.r** course folder using R studio. This is a blank R file. You will use this to copy/paste/write and run R codes that you will see throughout this course.
+
+::: {.callout-tip collapse="FALSE"}
+Set the working directory to the folder where the R file that you are editing is located. This is important since R will read the GTAP model file and database in the **model** subfolder. You can also manually set the working directory using the following codes:
+
+
+
+```{r}
+#| eval: false
+#### Using R studio feature
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+#### Manually set working directory in R
+setwd("D:/Daily_Work/2022 USDA GTAPinR/2024 GTAPinR newfiles/202403")
+#### Check the working directory to ensure it is correctly set:
+getwd()
+```
+
+
+:::
+
+d)  Install [devtools](https://cran.r-project.org/web/packages/devtools/index.html), [TabloToR](https://github.com/tsimonato/MTED-TabloToR) and [HARr](https://github.com/mivanic/HARr) packages.  You can install these packages using the following commands in R:
+
+
+
+```{r}
+#| eval: false
+install.packages("devtools")
+devtools::install_github('USDA-ERS/MTED-HARr')
+devtools::install_github('tsimonato/MTED-TabloToR')
+```
+
+
+
+::: callout-caution
+-   Make sure your current working directory is correct and that the **model** subfolder
+has the following files: sets.har, default.prm, dasedata.har, gtapv7.tab
+-  Make sure that the required R packages are installed correctly: [devtools](https://cran.r-project.org/web/packages/devtools/index.html), [TabloToR](https://github.com/tsimonato/MTED-TabloToR) and [HARr](https://github.com/tsimonato/MTED-TabloToR) packages.
+:::
+
+## A Brief Overview of Data Structures in R
+
+R provides several data structures for handling data. Among the most commonly used are [Data.frames](https://rstudio.github.io/r-manuals/r-intro/Lists-and-data-frames.html#data-frames), [Arrays](https://rstudio.github.io/r-manuals/r-intro/Arrays-and-matrices.html#arrays), and [Lists](https://rstudio.github.io/r-manuals/r-intro/Lists-and-data-frames.html#lists). Each structure has its unique features and use cases.
+
+::: panel-tabset
+## Data.frames
+
+A [Data.frame](https://rstudio.github.io/r-manuals/r-intro/Lists-and-data-frames.html#data-frames) is a table or a two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column. 
+Example of a Data.frame:
+
+
+
+```{r}
+#| output: false
+#### Creating a data.frame object in R
+df <- data.frame(
+  Commodities = c("Wheat", "Corn", "Wheat", "Corn"),
+  Activities = c("Farming", "Farming", "Harvesting", "Harvesting"),
+  Margins = c("Low", "High", "Low", "High"),
+  Values = c(1, 2, 3, 4)
+)
+df
+```
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+DT::datatable(df, options = list(
+  searching = FALSE,  # Disable the search bar
+  paging = FALSE,     # Disable pagination (navigation bar)
+  info = FALSE        # Hide the information about entries
+))
+```
+
+
+
+.
+
+Subsetting in a Data.frame can be done to select specific rows, columns, or both:
+
+::: panel-tabset
+### Filter by row
+
+Here, we select rows where the `Values` column is greater than 2
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+#### Filter df$Values which are greater than 2
+df[df$Values > 2, ]
+```
+
+
+
+### Filter by column
+
+Here, we select the 'Commodities' column
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+#### Select the 'Commodities' column in 'df' data.frame 
+df$Commodities
+```
+
+
+
+### Filter by rows and columns
+
+Here, we select rows where 'Values' is greater than 2 and only the 'Commodities' and 'Activities' columns
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+#### Select rows where 'Values' is greater than 2 and only the 'Commodities' and 'Activities' columns in 'df' data.frame
+df[df$Values > 2, c("Commodities", "Activities")]
+```
+
+
+:::
+
+## Arrays
+
+An [Array](https://rstudio.github.io/r-manuals/r-intro/Arrays-and-matrices.html#arrays) in R is a multi-dimensional data structure that can store data in more than two dimensions.  Arrays are useful for performing mathematical operations on multi-dimensional data.
+
+This is important since headers extracted from the *.har* files are treated as arrays in R.
+
+Example of an Array:
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+#### Creating an array object in R
+array_data <- array(df$Values, dim = c(2, 2, 2))
+dimnames(array_data) <- list(
+  unique(df$Commodities),
+  unique(df$Activities),
+  unique(df$Margins)
+)
+array_data
+
+#### Subsetting data from an Array
+array_subset <- array_data["Wheat", "Farming", ]
+array_subset
+```
+
+
+
+## Lists
+
+A [List](https://rstudio.github.io/r-manuals/r-intro/Lists-and-data-frames.html#lists) is a collection of elements that can be of different types and structures. You can think of a list as a container that holds a variety of objects, which can be accessed and [manipulated individually](https://rstudio.github.io/r-manuals/r-intro/Lists-and-data-frames.html#constructing-and-modifying-lists).
+
+Example of a List:
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+#### Creating a list object in R
+list_data <- list(
+  Data_Frame = df,
+  Array = array_data,
+  Details = list(
+    Commodities = unique(df$Commodities),
+    Activities = unique(df$Activities),
+    Margins = unique(df$Margins)
+  )
+)
+list_data
+```
+
+
+
+You can subset elements of a list using the `$`. For nested lists, you can chain these operators to access deeper levels.
+
+::: panel-tabset
+### Select a Data.frame within the list
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+#### Selecting data.frame within the list
+list_data$Data_Frame
+```
+
+
+
+### Select a specific column in the Data.frame
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+#### Selecting data.frame$Commodities within the list
+list_data$Data_Frame$Commodities
+```
+
+
+
+### Select a specific value in the Array
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+#### Selecting specific values in Array within the list
+list_data$Array["Wheat", "Farming", "Low"]
+```
+
+
+:::
+:::
+
+# Reading and Writing Databases with HARr
+
+GEMPACK utilizes custom *.har* binary data files to store information. The R package [HARr](https://github.com/USDA-ERS/MTED-HARr) enables R to directly read these *.har* files. It converts the data in these headers, including set information, into a [list](https://rstudio.github.io/r-manuals/r-intro/Arrays-and-matrices.html) of [arrays](https://rstudio.github.io/r-manuals/r-intro/Arrays-and-matrices.html), in which each array represents a header of the *.har* file.
+
+In this step, you will write a script to read the GTAP basedata and explore specific headers within them. Specifically, you will extract and examine the header `vdfb` (Domestic purchases, by firms, at basic prices).
+
+### Loading the GTAP data files
+
+In this step, you will learn how to load the GTAP model's database files into R using the [HARr](https://github.com/USDA-ERS/MTED-HARr) package. This step is crucial as it sets the foundation for solving the model. You will focus on how to read *.har* files in a specific way and understand their structure within the R environment.
+
+::: callout-note
+## Task 1: Create `database` list which reads in the GTAP basedata, parameters and set files in R
+
+
+```{r}
+#| eval: false
+# Complete the code 
+# Create `database` list which reads in the GTAP basedata,
+#  parameters and set files in R
+database = list(
+  gtapsets = HARr::read_har('??????')
+  gtapdata = HARr::read_har('??????')
+  gtapparm = HARr::read_har('??????')
+)
+```
+
+
+:::
+
+::: {.callout-warning collapse="true"}
+## Show the answer
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+# Create `database` list which reads in the GTAP basedata,
+#  parameters and set files in R
+database = list(
+  gtapsets = HARr::read_har('model\\sets.har'),
+  gtapdata = HARr::read_har('model\\basedata.har'),
+  gtapparm = HARr::read_har('model\\default.prm')
+)
+```
+
+
+:::
+
+::: {.callout-important collapse="true"}
+## Explanation
+
+The [HARr](https://github.com/USDA-ERS/MTED-HARr) package loads the *.har* files and stores them as array objects in R named *sets.har**, **default.prm**, and **basedata.har** into R and stores the files as a list named `database`, with keys `gtapsets`, `gtapdata`, and `gtapparm` respectively.
+
+The name of each list must be the same as the files specified in the **TABLO** code, preferably in lowercase. If you open the *gtapv7.tab*, file you should see the following lines:
+
+*GTAPv7.tab*, line 99:
+
+
+
+```{r}
+#| eval: false
+...
+File  GTAPSETS # file with set specification #;
+File  GTAPDATA # file containing all Base Data #;
+File  GTAPPARM # file containing behavioral parameters #;
+...
+```
+
+
+
+:::
+
+
+
+```{r}
+#| echo: false
+remove_elements <- function(lst, elements_to_remove) {
+  lapply(lst, function(sublist) {
+    sublist[!(names(sublist) %in% elements_to_remove)] 
+  })
+}
+cleaned_database <- remove_elements(database, c("xxcr", "xxcd", "xxcp"))
+```
+
+
+
+### Extracting Data in the GTAP Data Base
+
+This task involves extracting specific headers from the loaded GTAP Data Base, with a focus on the `vmfp` header. You will learn how to filter this data by region and activity. This exercise will assist you to become familiar with the format and structure of the data used in these packages.
+
+::: callout-note
+## Task 2: Extracting the `vmfp` header in the `database` list
+
+
+```{r}
+#| eval: false
+# Complete the code 
+# Extract and store 'vmfp' header as array object vmfp
+vmfp <- database$??????$??????
+vmfp
+```
+
+
+:::
+
+::: {.callout-warning collapse="true"}
+## Show the answer
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+# Extract and store 'vmfp' header as array object vmfp
+vmfp <- database$gtapdata$vmfp 
+vmfp
+```
+
+
+:::
+
+::: {.callout-important collapse="true"}
+## Explanation
+
+Recall in Task 1, you stored the *.har* files as a list named `database`, with keys `gtapsets`, `gtapdata`, and `gtapparm` respectively. You can then use R's traditional sublist selector `$` to subset lists and \[,,\] to subset the array in its 3 dimensions.
+Note that all characters in the database are in lower case, including the name of the headers.
+
+To display the available headers in the `database` list, you can use the `names()` function in R. To view the number of dimensions and dimension names in an array you can use the  `dim()` and  `dimnames()` function in R
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+# Show headers gtapdata array
+names(database$gtapdata)
+# Show number of dimensions of vmfp array object
+dim(vmfp) 
+# Show names of dimensions of vmfp array object
+dimnames(vmfp) # <3>
+
+```
+
+
+:::
+
+
+::: callout-note
+## Task 3: Filter for `food` elements in `acts` set in `vmfp` array object
+
+
+```{r}
+#| eval: false
+# Complete the code 
+# Filter for `food` elements in `acts` set in `vmfp` array object
+vmfp_food <- database$gtapdata$vmfp['?????','?????','??????']
+vmfp_food
+```
+
+
+:::
+
+
+::: {.callout-warning collapse="true"}
+## Show the answer
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+# Filter for `food` elements in `acts` set in `vmfp` array object
+vmfp_food <- database$gtapdata$vmfp[,"food",]
+vmfp_food
+```
+
+
+:::
+
+
+::: {.callout-important collapse="true"}
+## Explanation
+To filter an array, you need to know the number and order of its dimensions, in the case of vmfp: `[comm,acts,reg]`. To view the number of dimensions and dimension names in an array you can use the  `dim()` and  `dimnames()` function in R
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+# Show number of dimensions of vmfp array object
+dim(vmfp) 
+# Show names of dimensions of vmfp array object
+dimnames(vmfp) # <3>
+
+```
+
+
+:::
+
+### Converting Data for Analysis
+
+In this task, you will convert the extracted array data into a `data.frame.table` format using base R. This conversion is essential for making the data more accessible and easier to analyze using various R functions and packages like `data.table`, `dplyr` and `tidyr.`
+
+::: callout-note
+## Task 4: Convert the `vmfp` array into a `data.frame.table` object
+
+
+```{r}
+#| eval: false
+# Complete the code 
+# Convert the `vmfp` array into a `data.frame.table` object
+vmfp_df <- as.?????(vmfp)
+vmfp_df
+```
+
+
+:::
+
+::: {.callout-warning collapse="true"}
+## Show the answer
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+# Convert vmfp into data.frame.table
+# Convert the `vmfp` array into a `data.frame.table` object
+vmfp_df <- as.data.frame.table(vmfp)
+vmfp_df
+
+```
+
+
+:::
+
+::: {.callout-important collapse="true"}
+## Explanation
+Arrays converted to data.frame through `as.data.frame.table()` function. Also, keep in mind that they have *freq* as the name of the column of numerical values.
+
+
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+DT::datatable(vmfp_df)
+```
+
+
+:::
+
+### Exploring the data
+
+There are many options for exploring these databases in R. This can be useful for building a descriptive analysis of the database, identifying patterns, creating data dashboards and so on.
+
+::: callout-note
+## Task 5: Plot the `vmfp_food` object using `barplot()` function
+
+
+```{r}
+#| eval: false
+# Complete the code 
+# Plot vmfp_food using barplot() function in R
+?????(
+  ?????,
+  legend.text = rownames(vmfp_food),
+  main= "Imported purchases, by firms, at producers prices (million US$)"
+)
+```
+
+
+:::
+
+::: {.callout-warning collapse="true"}
+## Show the answer
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+# Plot vmfp_food using barplot() function in R
+barplot(
+  vmfp_food,
+  legend.text = rownames(vmfp_food),
+  main= "Imported purchases, by firms, at producers prices (million US$)"
+)
+```
+
+
+:::
+
+# Solving the Model with tabloToR
+
+In this section, you will follow the step-by-step instructions to run GTAP simulations in R. You will learn how to do the following tasks: loading and initializing model inputs and model code within the R environment, executing simulations, and exploring the results.
+
+## Initializing the GTAP model file and database in R
+
+In this step, you will convert the standard GTAP model file in the TABLO language into a format that R can understand using `tabloToR`. This requires setting the path to the model's TABLO file, initializing a `GEMModel` object in R and assigning to this object the paths for the model and database files.
+
+::: callout-note
+## Task 6: Assign model file and database after initializing a `GEMModel` object.
+
+
+```{r}
+#| eval: false
+# Complete the code 
+# Note: The order of the code matters! 
+#       Errors will occur if the order is wrong.
+#
+# Step 1. Initialize a new `GEModel` object using tabloToR package
+model <- ?????::GEModel$new() 
+# Step 2. Assign model file
+model$loadTablo(?????) 
+# Step 3. Assign model database
+model$loadData(?????)  
+```
+
+
+:::
+
+::: {.callout-warning collapse="true"}
+## Show the answer
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+# Note: The order of the code matters! 
+#       Errors will occur if the order is wrong.
+#
+# Step 1. Initialize a new `GEModel` object using tabloToR package
+model <- tabloToR::GEModel$new() #
+# Step 2. Assign model file
+model$loadTablo("model/GTAPv7.tab") #
+# Step 3. Assign model database
+model$loadData(database) # 
+```
+
+
+:::
+
+::: {.callout-important collapse="true"}
+## Explanation
+
+The first step calls the function `GEModel$new()` which creates a new instance of the `GEModel` class. It is an empty object which represents the model, its inputs and outputs.
+
+The second step calls the function `loadTablo()` which interprets a TABLO model and turns it into an R code inside the `GEModel` object. This is achieved through a process that interprets and translates different components of the model file such as statements like *Read*, *Set*, *Coefficient*, *Variable*, *Formula*, *Equation*, *Parameter*, *Mapping*, and so on. Each category of commands is handled in a specific way to ensure they are correctly represented in R. The correct labeling of each statement into its appropriate group is essential for the subsequent definition and construction of the matrix that will be inverted during the simulation. This precise organization is key to maintaining the integrity of the model's structure and calculations as it transitions into the R environment.
+
+The last step call the function `loadData()`  which initializes the data that will be used by the *GEModel* object
+
+Note that errors will occur if the sequence are not followed correctly.
+
+:::
+
+
+## Setup the model closure and shocks
+
+In this step, you will focus on setting up the **closure** conditions and applying specific **shocks** to the model. The closure assigns which variables are endogenously calculated within the model and exogenously dictated outside the model. Once the closure is defined, you will define the vectors of shocks which are the changes to the model's exogenous variables that simulate different scenarios, such as economic or policy changes.
+
+::: callout-note
+## Task 7: Define the exogenous variables in model closure
+
+
+```{r}
+#| eval: false
+# Complete the code 
+# Create character object in R which lists all exogenous variables
+exogenous_variables <- c(
+  'afall', 'afcom', 'afeall', 'afecom', 'afereg', 'afesec', 'afreg', 
+  'afsec', 'aintall', 'aintreg', 'aintsec', 'ams', 'aoall', 'aoreg', 
+  'aosec', 'atall', 'atd', 'atf', 'atm', 'ats', 'au', 'avaall', 
+  'avareg', 'avasec', 'cgdslack', 'dpgov', 'dppriv', 'dpsave', 
+  'endwslack', 'incomeslack', 'pfactwld', '?????', 'profitslack', 
+  'psaveslack', 'qe', 'qesf', 'tfd', 'tfe', 'tfm', 'tgd', 'tgm', 
+  'tid', 'tim', 'tinc', 'tm', 'tms', 'to', 'tpdall', 'tpmall', 
+  'tpreg', 'tradslack', 'tx', 'txs'
+)
+
+```
+
+
+:::
+
+::: {.callout-warning collapse="true"}
+## Show the answer
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+# Create character object in R which lists all exogenous variables
+exogenous_variables <- c(
+  'afall', 'afcom', 'afeall', 'afecom', 'afereg', 'afesec', 'afreg', 
+  'afsec', 'aintall', 'aintreg', 'aintsec', 'ams', 'aoall', 'aoreg', 
+  'aosec', 'atall', 'atd', 'atf', 'atm', 'ats', 'au', 'avaall', 
+  'avareg', 'avasec', 'cgdslack', 'dpgov', 'dppriv', 'dpsave', 
+  'endwslack', 'incomeslack', 'pfactwld', 'pop', 'profitslack', 
+  'psaveslack', 'qe', 'qesf', 'tfd', 'tfe', 'tfm', 'tgd', 'tgm', 
+  'tid', 'tim', 'tinc', 'tm', 'tms', 'to', 'tpdall', 'tpmall', 
+  'tpreg', 'tradslack', 'tx', 'txs'
+)
+
+```
+
+
+:::
+
+
+::: callout-note
+## Task 8: Setting shocks to all exogenous variables in the `GEModel` object to zero
+
+
+```{r}
+#| eval: false
+# Complete the code 
+# Loop statement to assign zero values to each exogenous 
+#   variable in the GEModel object 
+for (var in ??????) {
+  ?????$variableValues[[var]][] <- 0
+}
+```
+
+
+:::
+
+::: {.callout-warning collapse="true"}
+## Show the answer
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+# Loop statement to assign zero values to each exogenous 
+#   variable in the GEModel object
+for (var in exogenous_variables) {
+  model$variableValues[[var]][] <- 0
+}
+```
+
+
+:::
+
+
+::: callout-note
+## Task 9: Applying shocks to key exogenous variables in the `GEModel` object
+
+
+```{r}
+#| eval: false
+# Complete the code 
+# Assign 10% output augmenting productivity shock
+# to 'food' sectors in 'ssa' and 'eu' regions in the GEModel object 
+?????$variableValues$?????["?????", "?????"] = 10
+?????$variableValues$?????["?????", "?????"] = 10
+?????$variableValues$?????
+```
+
+
+:::
+
+::: {.callout-warning collapse="true"}
+## Show the answer
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+# Assign 10% productivity shock to 'food' sectors in 'ssa' and 'eu' regions 
+# in the GEModel object 
+model$variableValues$aoall["food", "ssa"] = 10
+model$variableValues$aoall["food", "eu"] = 10
+model$variableValues$aoall
+```
+
+
+:::
+
+
+::: {.callout-important collapse="true"}
+## Explanation
+
+Setting up the model closure requires identifying which variables are exogenous and then assigning zero values within the `GEModel` object using the `variableValues()` function. Use the `loop` function in R to efficiently assign zero values to all exogenous variables.
+
+`tabloToR` automatically assigns other variables which are not shocked as endogenous variables.
+
+When shocking variables for your simulations, you need to use the `variableValues()` function. Depending on the variable that you are shocking, you need to manually assign the indices (e.g. GTAP sector, endowment, region).
+
+:::
+
+
+## Solving the model and viewing model outputs
+
+You are now ready to solve the model, bringing together all the elements that you have prepared: reading in and assigning GTAP model and database, defining model closure, and assigning shocks to key variables.
+
+In this step, `tabloToR` solves the model's matrix, which is a representation of the equations from the model. The model's execution not only solves the matrix but also carries out the calculations defined in the model's formulas. Post-simulation processes are also done (if they are defined in the model `TABLO` file) using the model's output.
+
+The default solution method is *Euler*[^3] method. This is a multi-step procedure that  divides the exogenous shock into a (user-specified) number of equal components. In the current version, users can define the number of iterations and steps for only a two-step solution.
+
+It is important to note that once the model is solved, the model’s data is also updated. This means that running the same solveModel()function again, will apply the shocks to the updated model data.
+
+[^3]: [https://www.copsmodels.com/webhelp/rungtap/index.html?hc_solmethod.htm](https://www.copsmodels.com/webhelp/rungtap/index.html?hc_solmethod.htm)
+
+The model outputs are stored as an `outputData` object. The updated values of the basedata can be viewed by calling `$data` in `GEModel` object.
+
+::: callout-note
+## Task 10: Solve the `GEModel` object using Euler method with 3 iterations and 1-step and 6-step solution
+
+
+```{r}
+#| eval: false
+# Complete the code 
+# Solve the `GEModel` object using Euler with 
+#   3 iterations and 1-step and 6-step solution
+?????$solveModel(
+  iter = ?????,
+  steps = c(?????,?????)
+)
+```
+
+
+:::
+
+::: {.callout-warning collapse="true"}
+## Show the answer
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+# Solve the `GEModel` object using Euler with 
+#   3 iterations and 1-step and 6-step solution
+model$solveModel(
+  iter = 3,
+  steps = c(1,6)
+)
+```
+
+
+:::
+
+
+
+::: callout-note
+## Task 11: Extract the percent changes in total output in each region and plot
+
+
+```{r}
+#| eval: false
+# Complete the code 
+# Extract the percent changes in total output in each region and plot
+plotdata = outputData$????
+
+barplot(
+  plotdata,
+  beside = TRUE,
+  legend.text = rownames(plotdata),
+  main= "Total output by activity and region (%)"
+)
+```
+
+
+:::
+
+::: {.callout-warning collapse="true"}
+## Show the answer
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+# Extract the percent changes in total output in each region and plot
+plotdata = outputData$qo
+
+barplot(
+  plotdata,
+  beside = TRUE,
+  legend.text = rownames(plotdata),
+  main= "Total output by activity and region (%)"
+)
+```
+
+
+:::
+
+::: callout-note
+## Task 12: Extract the updated value of vmfp for the food sector and plot
+
+
+```{r}
+#| eval: false
+# Complete the code 
+# Extract the updated value of vmfp for the food sector 
+# from the `data` used by the GEModel object and plot
+vmfp_food <- ?????$?????$vmfp[,"food",]
+vmfp_food
+
+barplot(
+  vmfp_food,
+  legend.text = rownames(vmfp_food),
+  main= "Imported purchases, by firms, at producers prices (million US$)"
+)
+```
+
+
+:::
+
+::: {.callout-warning collapse="true"}
+## Show the answer
+
+
+
+```{r}
+#| output: !expr knitr::is_html_output()
+# Extract the updated value of vmfp for the food sector 
+# from the `data` used by the GEModel object and plot
+vmfp_food <- model$data$vmfp[,"food",]
+vmfp_food
+
+barplot(
+  vmfp_food,
+  legend.text = rownames(vmfp_food),
+  main= "Imported purchases, by firms, at producers prices (million US$)"
+)
+```
+
+
+:::
+
+# FAQ {.unnumbered}
+
+For common questions and answers, please visit the [FAQ page](https://tsimonato.github.io/GTAPinR_Course/faq.html).
+

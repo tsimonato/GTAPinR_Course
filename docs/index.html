@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-05-30">
+<meta name="dcterms.date" content="2025-02-10">
 
 <title>GTAPinR Course</title>
 <style>
@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <link href="index_files/libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
 
-<script src="index_files/libs/datatables-binding-0.33/datatables.js"></script>
+<script src="index_files/libs/datatables-binding-0.34.0/datatables.js"></script>
 
 <script src="index_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 
@@ -89,9 +89,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script src="index_files/libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
 
-<link href="index_files/libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<link href="index_files/libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
 
-<script src="index_files/libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<script src="index_files/libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
 
 
 
@@ -105,25 +105,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Course Outline</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
+  <li><a href="#getting-started-with-gtapinr" id="toc-getting-started-with-gtapinr" class="nav-link active" data-scroll-target="#getting-started-with-gtapinr"><span class="header-section-number">1</span> Getting Started with GTAPinR</a>
   <ul>
   <li><a href="#setting-up" id="toc-setting-up" class="nav-link" data-scroll-target="#setting-up"><span class="header-section-number">1.1</span> Setting Up</a></li>
   <li><a href="#a-brief-overview-of-data-structures-in-r" id="toc-a-brief-overview-of-data-structures-in-r" class="nav-link" data-scroll-target="#a-brief-overview-of-data-structures-in-r"><span class="header-section-number">1.2</span> A Brief Overview of Data Structures in R</a></li>
   </ul></li>
-  <li><a href="#running-gtap-in-r" id="toc-running-gtap-in-r" class="nav-link" data-scroll-target="#running-gtap-in-r"><span class="header-section-number">2</span> Running GTAP in R</a>
+  <li><a href="#reading-and-writing-databases-with-harr" id="toc-reading-and-writing-databases-with-harr" class="nav-link" data-scroll-target="#reading-and-writing-databases-with-harr"><span class="header-section-number">2</span> Reading and Writing Databases with HARr</a>
   <ul>
-  <li><a href="#loading-and-exploring-the-gtap-data-base" id="toc-loading-and-exploring-the-gtap-data-base" class="nav-link" data-scroll-target="#loading-and-exploring-the-gtap-data-base"><span class="header-section-number">2.1</span> Loading and exploring the GTAP Data Base</a>
+  <li><a href="#loading-the-gtap-data-files" id="toc-loading-the-gtap-data-files" class="nav-link" data-scroll-target="#loading-the-gtap-data-files"><span class="header-section-number">2.0.1</span> Loading the GTAP data files</a></li>
+  <li><a href="#extracting-data-in-the-gtap-data-base" id="toc-extracting-data-in-the-gtap-data-base" class="nav-link" data-scroll-target="#extracting-data-in-the-gtap-data-base"><span class="header-section-number">2.0.2</span> Extracting Data in the GTAP Data Base</a></li>
+  <li><a href="#converting-data-for-analysis" id="toc-converting-data-for-analysis" class="nav-link" data-scroll-target="#converting-data-for-analysis"><span class="header-section-number">2.0.3</span> Converting Data for Analysis</a></li>
+  <li><a href="#exploring-the-data" id="toc-exploring-the-data" class="nav-link" data-scroll-target="#exploring-the-data"><span class="header-section-number">2.0.4</span> Exploring the data</a></li>
+  </ul></li>
+  <li><a href="#solving-the-model-with-tablotor" id="toc-solving-the-model-with-tablotor" class="nav-link" data-scroll-target="#solving-the-model-with-tablotor"><span class="header-section-number">3</span> Solving the Model with tabloToR</a>
   <ul>
-  <li><a href="#loading-the-gtap-data-files" id="toc-loading-the-gtap-data-files" class="nav-link" data-scroll-target="#loading-the-gtap-data-files"><span class="header-section-number">2.1.1</span> Loading the GTAP data files</a></li>
-  <li><a href="#extracting-data-in-the-gtap-data-base" id="toc-extracting-data-in-the-gtap-data-base" class="nav-link" data-scroll-target="#extracting-data-in-the-gtap-data-base"><span class="header-section-number">2.1.2</span> Extracting Data in the GTAP Data Base</a></li>
-  <li><a href="#converting-data-for-analysis" id="toc-converting-data-for-analysis" class="nav-link" data-scroll-target="#converting-data-for-analysis"><span class="header-section-number">2.1.3</span> Converting Data for Analysis</a></li>
-  <li><a href="#exploring-the-data" id="toc-exploring-the-data" class="nav-link" data-scroll-target="#exploring-the-data"><span class="header-section-number">2.1.4</span> Exploring the data</a></li>
+  <li><a href="#initializing-the-gtap-model-file-and-database-in-r" id="toc-initializing-the-gtap-model-file-and-database-in-r" class="nav-link" data-scroll-target="#initializing-the-gtap-model-file-and-database-in-r"><span class="header-section-number">3.1</span> Initializing the GTAP model file and database in R</a></li>
+  <li><a href="#setup-the-model-closure-and-shocks" id="toc-setup-the-model-closure-and-shocks" class="nav-link" data-scroll-target="#setup-the-model-closure-and-shocks"><span class="header-section-number">3.2</span> Setup the model closure and shocks</a></li>
+  <li><a href="#solving-the-model-and-viewing-model-outputs" id="toc-solving-the-model-and-viewing-model-outputs" class="nav-link" data-scroll-target="#solving-the-model-and-viewing-model-outputs"><span class="header-section-number">3.3</span> Solving the model and viewing model outputs</a></li>
   </ul></li>
-  <li><a href="#initializing-the-gtap-model-file-and-database-in-r" id="toc-initializing-the-gtap-model-file-and-database-in-r" class="nav-link" data-scroll-target="#initializing-the-gtap-model-file-and-database-in-r"><span class="header-section-number">2.2</span> Initializing the GTAP model file and database in R</a></li>
-  <li><a href="#setup-the-model-closure-and-shocks" id="toc-setup-the-model-closure-and-shocks" class="nav-link" data-scroll-target="#setup-the-model-closure-and-shocks"><span class="header-section-number">2.3</span> Setup the model closure and shocks</a></li>
-  <li><a href="#solving-the-model-and-viewing-model-outputs" id="toc-solving-the-model-and-viewing-model-outputs" class="nav-link" data-scroll-target="#solving-the-model-and-viewing-model-outputs"><span class="header-section-number">2.4</span> Solving the model and viewing model outputs</a></li>
-  </ul></li>
-  <li><a href="#faq" id="toc-faq" class="nav-link" data-scroll-target="#faq"><span class="header-section-number">3</span> FAQ</a></li>
+  <li><a href="#faq" id="toc-faq" class="nav-link" data-scroll-target="#faq">FAQ</a></li>
   </ul>
 </nav>
 </div>
@@ -140,7 +140,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-meta-heading">Affiliations</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Thiago Simonato <a href="mailto:tsimonat@purdue.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+    <p class="author">Thiago Simonato </p>
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -148,27 +148,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </p>
       </div>
     <div class="quarto-title-meta-contents">
-    <p class="author">Uris Lantz Baldos <a href="mailto:ubaldos@purdue.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+    <p class="author">Uris Lantz Baldos </p>
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
             Research Associate Professor, Center for Global Trade Analysis, Department of Agricultural Economics, Purdue University
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Zeynep Akgul <a href="mailto:zakgul@purdue.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            GTAP-U Coordinator, Center for Global Trade Analysis, Purdue University
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Ginger Batta <a href="mailto:gbatta@purdue.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Principal Program Manager, Center for Global Trade Analysis, Department of Agricultural Economics, Purdue University
           </p>
       </div>
   </div>
@@ -179,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 30, 2025</p>
+      <p class="date">February 10, 2025</p>
     </div>
   </div>
   
@@ -199,8 +183,8 @@ p {
 </style>
 </div>
 <div style="page-break-after: always;"></div>
-<section id="introduction" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<section id="getting-started-with-gtapinr" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Getting Started with GTAPinR</h1>
 <p>This course introduces new tools to work with <a href="https://www.gtap.agecon.purdue.edu/">GTAP</a> model and database in <a href="https://www.r-project.org/">R</a>. It provides practical hands-on experience starting with the installation of the required packages in R, viewing <em>.har</em> files, setting up and running the standard GTAP model version 7<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> in R and exploring model outputs.</p>
 <p>The key packages used in the course includes:</p>
 <ol type="1">
@@ -303,8 +287,8 @@ Caution
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-49b5b070627c4e294b10" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-49b5b070627c4e294b10">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],["Wheat","Corn","Wheat","Corn"],["Farming","Farming","Harvesting","Harvesting"],["Low","High","Low","High"],[1,2,3,4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Commodities<\/th>\n      <th>Activities<\/th>\n      <th>Margins<\/th>\n      <th>Values<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"searching":false,"paging":false,"info":false,"columnDefs":[{"className":"dt-right","targets":4},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Commodities","targets":1},{"name":"Activities","targets":2},{"name":"Margins","targets":3},{"name":"Values","targets":4}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f73f69a8d9c9451477b1" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f73f69a8d9c9451477b1">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],["Wheat","Corn","Wheat","Corn"],["Farming","Farming","Harvesting","Harvesting"],["Low","High","Low","High"],[1,2,3,4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Commodities<\/th>\n      <th>Activities<\/th>\n      <th>Margins<\/th>\n      <th>Values<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"searching":false,"paging":false,"info":false,"columnDefs":[{"className":"dt-right","targets":4},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Commodities","targets":1},{"name":"Activities","targets":2},{"name":"Margins","targets":3},{"name":"Values","targets":4}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>.</p>
@@ -474,15 +458,12 @@ $Details$Margins
 </div>
 </section>
 </section>
-<section id="running-gtap-in-r" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Running GTAP in R</h1>
-<p>In this section, you will follow the step-by-step instructions to run GTAP simulations in R. You will learn how to do the following tasks: import and examine <em>.har</em> files in R, loading and initializing model inputs and model code within the R environment, executing simulations, and exploring the results.</p>
-<section id="loading-and-exploring-the-gtap-data-base" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="loading-and-exploring-the-gtap-data-base"><span class="header-section-number">2.1</span> Loading and exploring the GTAP Data Base</h2>
+<section id="reading-and-writing-databases-with-harr" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Reading and Writing Databases with HARr</h1>
 <p>GEMPACK utilizes custom <em>.har</em> binary data files to store information. The R package <a href="https://github.com/USDA-ERS/MTED-HARr">HARr</a> enables R to directly read these <em>.har</em> files. It converts the data in these headers, including set information, into a <a href="https://rstudio.github.io/r-manuals/r-intro/Arrays-and-matrices.html">list</a> of <a href="https://rstudio.github.io/r-manuals/r-intro/Arrays-and-matrices.html">arrays</a>, in which each array represents a header of the <em>.har</em> file.</p>
 <p>In this step, you will write a script to read the GTAP basedata and explore specific headers within them. Specifically, you will extract and examine the header <code>vdfb</code> (Domestic purchases, by firms, at basic prices).</p>
-<section id="loading-the-gtap-data-files" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="loading-the-gtap-data-files"><span class="header-section-number">2.1.1</span> Loading the GTAP data files</h3>
+<section id="loading-the-gtap-data-files" class="level3" data-number="2.0.1">
+<h3 data-number="2.0.1" class="anchored" data-anchor-id="loading-the-gtap-data-files"><span class="header-section-number">2.0.1</span> Loading the GTAP data files</h3>
 <p>In this step, you will learn how to load the GTAP model’s database files into R using the <a href="https://github.com/USDA-ERS/MTED-HARr">HARr</a> package. This step is crucial as it sets the foundation for solving the model. You will focus on how to read <em>.har</em> files in a specific way and understand their structure within the R environment.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -556,8 +537,8 @@ Explanation
 </div>
 </div>
 </section>
-<section id="extracting-data-in-the-gtap-data-base" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="extracting-data-in-the-gtap-data-base"><span class="header-section-number">2.1.2</span> Extracting Data in the GTAP Data Base</h3>
+<section id="extracting-data-in-the-gtap-data-base" class="level3" data-number="2.0.2">
+<h3 data-number="2.0.2" class="anchored" data-anchor-id="extracting-data-in-the-gtap-data-base"><span class="header-section-number">2.0.2</span> Extracting Data in the GTAP Data Base</h3>
 <p>This task involves extracting specific headers from the loaded GTAP Data Base, with a focus on the <code>vmfp</code> header. You will learn how to filter this data by region and activity. This exercise will assist you to become familiar with the format and structure of the data used in these packages.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -741,8 +722,8 @@ $reg
 </div>
 </div>
 </section>
-<section id="converting-data-for-analysis" class="level3" data-number="2.1.3">
-<h3 data-number="2.1.3" class="anchored" data-anchor-id="converting-data-for-analysis"><span class="header-section-number">2.1.3</span> Converting Data for Analysis</h3>
+<section id="converting-data-for-analysis" class="level3" data-number="2.0.3">
+<h3 data-number="2.0.3" class="anchored" data-anchor-id="converting-data-for-analysis"><span class="header-section-number">2.0.3</span> Converting Data for Analysis</h3>
 <p>In this task, you will convert the extracted array data into a <code>data.frame.table</code> format using base R. This conversion is essential for making the data more accessible and easier to analyze using various R functions and packages like <code>data.table</code>, <code>dplyr</code> and <code>tidyr.</code></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -828,16 +809,16 @@ Explanation
 <p>Arrays converted to data.frame through <code>as.data.frame.table()</code> function. Also, keep in mind that they have <em>freq</em> as the name of the column of numerical values.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-a2cc73a27a75a25ca5c8" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-a2cc73a27a75a25ca5c8">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27"],["food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces"],["food","food","food","mnfcs","mnfcs","mnfcs","svces","svces","svces","food","food","food","mnfcs","mnfcs","mnfcs","svces","svces","svces","food","food","food","mnfcs","mnfcs","mnfcs","svces","svces","svces"],["ssa","ssa","ssa","ssa","ssa","ssa","ssa","ssa","ssa","eu","eu","eu","eu","eu","eu","eu","eu","eu","row","row","row","row","row","row","row","row","row"],[3053.640869140625,4988.4931640625,1352.623413085938,847.5477294921875,21711.203125,2573.546142578125,699.6063232421875,13755.7685546875,5244.45947265625,106757.5390625,42000.4375,12873.859375,19543.310546875,729110.9375,67352.2578125,21146.185546875,210368.3125,198928.09375,132265.84375,85475.671875,21010.39453125,38923.7421875,1269135.125,74416.015625,30186.4140625,430168.25,211477.125]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comm<\/th>\n      <th>acts<\/th>\n      <th>reg<\/th>\n      <th>Freq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":4},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comm","targets":1},{"name":"acts","targets":2},{"name":"reg","targets":3},{"name":"Freq","targets":4}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-77f67bc80abcde966fab" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-77f67bc80abcde966fab">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27"],["food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces"],["food","food","food","mnfcs","mnfcs","mnfcs","svces","svces","svces","food","food","food","mnfcs","mnfcs","mnfcs","svces","svces","svces","food","food","food","mnfcs","mnfcs","mnfcs","svces","svces","svces"],["ssa","ssa","ssa","ssa","ssa","ssa","ssa","ssa","ssa","eu","eu","eu","eu","eu","eu","eu","eu","eu","row","row","row","row","row","row","row","row","row"],[3053.640869140625,4988.4931640625,1352.623413085938,847.5477294921875,21711.203125,2573.546142578125,699.6063232421875,13755.7685546875,5244.45947265625,106757.5390625,42000.4375,12873.859375,19543.310546875,729110.9375,67352.2578125,21146.185546875,210368.3125,198928.09375,132265.84375,85475.671875,21010.39453125,38923.7421875,1269135.125,74416.015625,30186.4140625,430168.25,211477.125]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comm<\/th>\n      <th>acts<\/th>\n      <th>reg<\/th>\n      <th>Freq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":4},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comm","targets":1},{"name":"acts","targets":2},{"name":"reg","targets":3},{"name":"Freq","targets":4}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="exploring-the-data" class="level3" data-number="2.1.4">
-<h3 data-number="2.1.4" class="anchored" data-anchor-id="exploring-the-data"><span class="header-section-number">2.1.4</span> Exploring the data</h3>
+<section id="exploring-the-data" class="level3" data-number="2.0.4">
+<h3 data-number="2.0.4" class="anchored" data-anchor-id="exploring-the-data"><span class="header-section-number">2.0.4</span> Exploring the data</h3>
 <p>There are many options for exploring these databases in R. This can be useful for building a descriptive analysis of the database, identifying patterns, creating data dashboards and so on.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -892,8 +873,11 @@ Show the answer
 </div>
 </section>
 </section>
-<section id="initializing-the-gtap-model-file-and-database-in-r" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="initializing-the-gtap-model-file-and-database-in-r"><span class="header-section-number">2.2</span> Initializing the GTAP model file and database in R</h2>
+<section id="solving-the-model-with-tablotor" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Solving the Model with tabloToR</h1>
+<p>In this section, you will follow the step-by-step instructions to run GTAP simulations in R. You will learn how to do the following tasks: loading and initializing model inputs and model code within the R environment, executing simulations, and exploring the results.</p>
+<section id="initializing-the-gtap-model-file-and-database-in-r" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="initializing-the-gtap-model-file-and-database-in-r"><span class="header-section-number">3.1</span> Initializing the GTAP model file and database in R</h2>
 <p>In this step, you will convert the standard GTAP model file in the TABLO language into a format that R can understand using <code>tabloToR</code>. This requires setting the path to the model’s TABLO file, initializing a <code>GEMModel</code> object in R and assigning to this object the paths for the model and database files.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -942,8 +926,11 @@ Show the answer
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: Matrix</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3. Assign model database</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span><span class="fu">loadData</span>(database) <span class="co"># </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'Matrix' was built under R version 4.4.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3. Assign model database</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span><span class="fu">loadData</span>(database) <span class="co"># </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -968,8 +955,8 @@ Explanation
 </div>
 </div>
 </section>
-<section id="setup-the-model-closure-and-shocks" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="setup-the-model-closure-and-shocks"><span class="header-section-number">2.3</span> Setup the model closure and shocks</h2>
+<section id="setup-the-model-closure-and-shocks" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="setup-the-model-closure-and-shocks"><span class="header-section-number">3.2</span> Setup the model closure and shocks</h2>
 <p>In this step, you will focus on setting up the <strong>closure</strong> conditions and applying specific <strong>shocks</strong> to the model. The closure assigns which variables are endogenously calculated within the model and exogenously dictated outside the model. Once the closure is defined, you will define the vectors of shocks which are the changes to the model’s exogenous variables that simulate different scenarios, such as economic or policy changes.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -982,18 +969,18 @@ Task 7: Define the exogenous variables in model closure
 </div>
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete the code </span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create character object in R which lists all exogenous variables</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>exogenous_variables <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">'afall'</span>, <span class="st">'afcom'</span>, <span class="st">'afeall'</span>, <span class="st">'afecom'</span>, <span class="st">'afereg'</span>, <span class="st">'afesec'</span>, <span class="st">'afreg'</span>, </span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">'afsec'</span>, <span class="st">'aintall'</span>, <span class="st">'aintreg'</span>, <span class="st">'aintsec'</span>, <span class="st">'ams'</span>, <span class="st">'aoall'</span>, <span class="st">'aoreg'</span>, </span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">'aosec'</span>, <span class="st">'atall'</span>, <span class="st">'atd'</span>, <span class="st">'atf'</span>, <span class="st">'atm'</span>, <span class="st">'ats'</span>, <span class="st">'au'</span>, <span class="st">'avaall'</span>, </span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">'avareg'</span>, <span class="st">'avasec'</span>, <span class="st">'cgdslack'</span>, <span class="st">'dpgov'</span>, <span class="st">'dppriv'</span>, <span class="st">'dpsave'</span>, </span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">'endwslack'</span>, <span class="st">'incomeslack'</span>, <span class="st">'pfactwld'</span>, <span class="st">'?????'</span>, <span class="st">'profitslack'</span>, </span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">'psaveslack'</span>, <span class="st">'qe'</span>, <span class="st">'qesf'</span>, <span class="st">'tfd'</span>, <span class="st">'tfe'</span>, <span class="st">'tfm'</span>, <span class="st">'tgd'</span>, <span class="st">'tgm'</span>, </span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">'tid'</span>, <span class="st">'tim'</span>, <span class="st">'tinc'</span>, <span class="st">'tm'</span>, <span class="st">'tms'</span>, <span class="st">'to'</span>, <span class="st">'tpdall'</span>, <span class="st">'tpmall'</span>, </span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">'tpreg'</span>, <span class="st">'tradslack'</span>, <span class="st">'tx'</span>, <span class="st">'txs'</span></span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete the code </span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create character object in R which lists all exogenous variables</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>exogenous_variables <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">'afall'</span>, <span class="st">'afcom'</span>, <span class="st">'afeall'</span>, <span class="st">'afecom'</span>, <span class="st">'afereg'</span>, <span class="st">'afesec'</span>, <span class="st">'afreg'</span>, </span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">'afsec'</span>, <span class="st">'aintall'</span>, <span class="st">'aintreg'</span>, <span class="st">'aintsec'</span>, <span class="st">'ams'</span>, <span class="st">'aoall'</span>, <span class="st">'aoreg'</span>, </span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">'aosec'</span>, <span class="st">'atall'</span>, <span class="st">'atd'</span>, <span class="st">'atf'</span>, <span class="st">'atm'</span>, <span class="st">'ats'</span>, <span class="st">'au'</span>, <span class="st">'avaall'</span>, </span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">'avareg'</span>, <span class="st">'avasec'</span>, <span class="st">'cgdslack'</span>, <span class="st">'dpgov'</span>, <span class="st">'dppriv'</span>, <span class="st">'dpsave'</span>, </span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">'endwslack'</span>, <span class="st">'incomeslack'</span>, <span class="st">'pfactwld'</span>, <span class="st">'?????'</span>, <span class="st">'profitslack'</span>, </span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">'psaveslack'</span>, <span class="st">'qe'</span>, <span class="st">'qesf'</span>, <span class="st">'tfd'</span>, <span class="st">'tfe'</span>, <span class="st">'tfm'</span>, <span class="st">'tgd'</span>, <span class="st">'tgm'</span>, </span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">'tid'</span>, <span class="st">'tim'</span>, <span class="st">'tinc'</span>, <span class="st">'tm'</span>, <span class="st">'tms'</span>, <span class="st">'to'</span>, <span class="st">'tpdall'</span>, <span class="st">'tpmall'</span>, </span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">'tpreg'</span>, <span class="st">'tradslack'</span>, <span class="st">'tx'</span>, <span class="st">'txs'</span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1010,17 +997,17 @@ Show the answer
 <div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create character object in R which lists all exogenous variables</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>exogenous_variables <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">'afall'</span>, <span class="st">'afcom'</span>, <span class="st">'afeall'</span>, <span class="st">'afecom'</span>, <span class="st">'afereg'</span>, <span class="st">'afesec'</span>, <span class="st">'afreg'</span>, </span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">'afsec'</span>, <span class="st">'aintall'</span>, <span class="st">'aintreg'</span>, <span class="st">'aintsec'</span>, <span class="st">'ams'</span>, <span class="st">'aoall'</span>, <span class="st">'aoreg'</span>, </span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">'aosec'</span>, <span class="st">'atall'</span>, <span class="st">'atd'</span>, <span class="st">'atf'</span>, <span class="st">'atm'</span>, <span class="st">'ats'</span>, <span class="st">'au'</span>, <span class="st">'avaall'</span>, </span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">'avareg'</span>, <span class="st">'avasec'</span>, <span class="st">'cgdslack'</span>, <span class="st">'dpgov'</span>, <span class="st">'dppriv'</span>, <span class="st">'dpsave'</span>, </span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">'endwslack'</span>, <span class="st">'incomeslack'</span>, <span class="st">'pfactwld'</span>, <span class="st">'pop'</span>, <span class="st">'profitslack'</span>, </span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">'psaveslack'</span>, <span class="st">'qe'</span>, <span class="st">'qesf'</span>, <span class="st">'tfd'</span>, <span class="st">'tfe'</span>, <span class="st">'tfm'</span>, <span class="st">'tgd'</span>, <span class="st">'tgm'</span>, </span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">'tid'</span>, <span class="st">'tim'</span>, <span class="st">'tinc'</span>, <span class="st">'tm'</span>, <span class="st">'tms'</span>, <span class="st">'to'</span>, <span class="st">'tpdall'</span>, <span class="st">'tpmall'</span>, </span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">'tpreg'</span>, <span class="st">'tradslack'</span>, <span class="st">'tx'</span>, <span class="st">'txs'</span></span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create character object in R which lists all exogenous variables</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>exogenous_variables <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">'afall'</span>, <span class="st">'afcom'</span>, <span class="st">'afeall'</span>, <span class="st">'afecom'</span>, <span class="st">'afereg'</span>, <span class="st">'afesec'</span>, <span class="st">'afreg'</span>, </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">'afsec'</span>, <span class="st">'aintall'</span>, <span class="st">'aintreg'</span>, <span class="st">'aintsec'</span>, <span class="st">'ams'</span>, <span class="st">'aoall'</span>, <span class="st">'aoreg'</span>, </span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">'aosec'</span>, <span class="st">'atall'</span>, <span class="st">'atd'</span>, <span class="st">'atf'</span>, <span class="st">'atm'</span>, <span class="st">'ats'</span>, <span class="st">'au'</span>, <span class="st">'avaall'</span>, </span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">'avareg'</span>, <span class="st">'avasec'</span>, <span class="st">'cgdslack'</span>, <span class="st">'dpgov'</span>, <span class="st">'dppriv'</span>, <span class="st">'dpsave'</span>, </span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">'endwslack'</span>, <span class="st">'incomeslack'</span>, <span class="st">'pfactwld'</span>, <span class="st">'pop'</span>, <span class="st">'profitslack'</span>, </span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">'psaveslack'</span>, <span class="st">'qe'</span>, <span class="st">'qesf'</span>, <span class="st">'tfd'</span>, <span class="st">'tfe'</span>, <span class="st">'tfm'</span>, <span class="st">'tgd'</span>, <span class="st">'tgm'</span>, </span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">'tid'</span>, <span class="st">'tim'</span>, <span class="st">'tinc'</span>, <span class="st">'tm'</span>, <span class="st">'tms'</span>, <span class="st">'to'</span>, <span class="st">'tpdall'</span>, <span class="st">'tpmall'</span>, </span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">'tpreg'</span>, <span class="st">'tradslack'</span>, <span class="st">'tx'</span>, <span class="st">'txs'</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1036,12 +1023,12 @@ Task 8: Setting shocks to all exogenous variables in the <code>GEModel</code> ob
 </div>
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete the code </span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop statement to assign zero values to each exogenous </span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   variable in the GEModel object </span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (var <span class="cf">in</span> ??????) {</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  ?????<span class="sc">$</span>variableValues[[var]][] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete the code </span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop statement to assign zero values to each exogenous </span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   variable in the GEModel object </span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (var <span class="cf">in</span> ??????) {</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  ?????<span class="sc">$</span>variableValues[[var]][] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1058,11 +1045,11 @@ Show the answer
 <div id="callout-23" class="callout-23-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop statement to assign zero values to each exogenous </span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   variable in the GEModel object</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (var <span class="cf">in</span> exogenous_variables) {</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  model<span class="sc">$</span>variableValues[[var]][] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop statement to assign zero values to each exogenous </span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   variable in the GEModel object</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (var <span class="cf">in</span> exogenous_variables) {</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  model<span class="sc">$</span>variableValues[[var]][] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1078,12 +1065,12 @@ Task 9: Applying shocks to key exogenous variables in the <code>GEModel</code> o
 </div>
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete the code </span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign 10% output augmenting productivity shock</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># to 'food' sectors in 'ssa' and 'eu' regions in the GEModel object </span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>?????<span class="sc">$</span>variableValues<span class="sc">$</span>?????[<span class="st">"?????"</span>, <span class="st">"?????"</span>] <span class="ot">=</span> <span class="dv">10</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>?????<span class="sc">$</span>variableValues<span class="sc">$</span>?????[<span class="st">"?????"</span>, <span class="st">"?????"</span>] <span class="ot">=</span> <span class="dv">10</span></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>?????<span class="sc">$</span>variableValues<span class="sc">$</span>?????</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete the code </span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign 10% output augmenting productivity shock</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co"># to 'food' sectors in 'ssa' and 'eu' regions in the GEModel object </span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>?????<span class="sc">$</span>variableValues<span class="sc">$</span>?????[<span class="st">"?????"</span>, <span class="st">"?????"</span>] <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>?????<span class="sc">$</span>variableValues<span class="sc">$</span>?????[<span class="st">"?????"</span>, <span class="st">"?????"</span>] <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>?????<span class="sc">$</span>variableValues<span class="sc">$</span>?????</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1100,11 +1087,11 @@ Show the answer
 <div id="callout-25" class="callout-25-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign 10% productivity shock to 'food' sectors in 'ssa' and 'eu' regions </span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co"># in the GEModel object </span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>variableValues<span class="sc">$</span>aoall[<span class="st">"food"</span>, <span class="st">"ssa"</span>] <span class="ot">=</span> <span class="dv">10</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>variableValues<span class="sc">$</span>aoall[<span class="st">"food"</span>, <span class="st">"eu"</span>] <span class="ot">=</span> <span class="dv">10</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>variableValues<span class="sc">$</span>aoall</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign 10% productivity shock to 'food' sectors in 'ssa' and 'eu' regions </span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co"># in the GEModel object </span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>variableValues<span class="sc">$</span>aoall[<span class="st">"food"</span>, <span class="st">"ssa"</span>] <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>variableValues<span class="sc">$</span>aoall[<span class="st">"food"</span>, <span class="st">"eu"</span>] <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>variableValues<span class="sc">$</span>aoall</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       reg
 acts    ssa eu row
@@ -1135,8 +1122,8 @@ Explanation
 </div>
 </div>
 </section>
-<section id="solving-the-model-and-viewing-model-outputs" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="solving-the-model-and-viewing-model-outputs"><span class="header-section-number">2.4</span> Solving the model and viewing model outputs</h2>
+<section id="solving-the-model-and-viewing-model-outputs" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="solving-the-model-and-viewing-model-outputs"><span class="header-section-number">3.3</span> Solving the model and viewing model outputs</h2>
 <p>You are now ready to solve the model, bringing together all the elements that you have prepared: reading in and assigning GTAP model and database, defining model closure, and assigning shocks to key variables.</p>
 <p>In this step, <code>tabloToR</code> solves the model’s matrix, which is a representation of the equations from the model. The model’s execution not only solves the matrix but also carries out the calculations defined in the model’s formulas. Post-simulation processes are also done (if they are defined in the model <code>TABLO</code> file) using the model’s output.</p>
 <p>The default solution method is <em>Euler</em><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> method. This is a multi-step procedure that divides the exogenous shock into a (user-specified) number of equal components. In the current version, users can define the number of iterations and steps for only a two-step solution.</p>
@@ -1153,13 +1140,13 @@ Task 10: Solve the <code>GEModel</code> object using Euler method with 3 iterati
 </div>
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete the code </span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve the `GEModel` object using Euler with </span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   3 iterations and 1-step and 6-step solution</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>?????<span class="sc">$</span><span class="fu">solveModel</span>(</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">iter =</span> ?????,</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">steps =</span> <span class="fu">c</span>(?????,?????)</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete the code </span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve the `GEModel` object using Euler with </span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   3 iterations and 1-step and 6-step solution</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>?????<span class="sc">$</span><span class="fu">solveModel</span>(</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">iter =</span> ?????,</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">steps =</span> <span class="fu">c</span>(?????,?????)</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1176,12 +1163,12 @@ Show the answer
 <div id="callout-28" class="callout-28-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve the `GEModel` object using Euler with </span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   3 iterations and 1-step and 6-step solution</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span><span class="fu">solveModel</span>(</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">iter =</span> <span class="dv">3</span>,</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">steps =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>)</span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve the `GEModel` object using Euler with </span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   3 iterations and 1-step and 6-step solution</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span><span class="fu">solveModel</span>(</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">iter =</span> <span class="dv">3</span>,</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">steps =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>)</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Iteration 1/3</code></pre>
 </div>
@@ -1287,16 +1274,16 @@ Task 11: Extract the percent changes in total output in each region and plot
 </div>
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete the code </span></span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the percent changes in total output in each region and plot</span></span>
-<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>plotdata <span class="ot">=</span> outputData<span class="sc">$</span>????</span>
-<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
-<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>  plotdata,</span>
-<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">beside =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">rownames</span>(plotdata),</span>
-<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">main=</span> <span class="st">"Total output by activity and region (%)"</span></span>
-<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete the code </span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the percent changes in total output in each region and plot</span></span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>plotdata <span class="ot">=</span> outputData<span class="sc">$</span>????</span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>  plotdata,</span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">beside =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">rownames</span>(plotdata),</span>
+<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">main=</span> <span class="st">"Total output by activity and region (%)"</span></span>
+<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1313,15 +1300,15 @@ Show the answer
 <div id="callout-30" class="callout-30-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the percent changes in total output in each region and plot</span></span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>plotdata <span class="ot">=</span> outputData<span class="sc">$</span>qo</span>
-<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
-<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>  plotdata,</span>
-<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">beside =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">rownames</span>(plotdata),</span>
-<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">main=</span> <span class="st">"Total output by activity and region (%)"</span></span>
-<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the percent changes in total output in each region and plot</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>plotdata <span class="ot">=</span> outputData<span class="sc">$</span>qo</span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>  plotdata,</span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">beside =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">rownames</span>(plotdata),</span>
+<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">main=</span> <span class="st">"Total output by activity and region (%)"</span></span>
+<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1344,17 +1331,17 @@ Task 12: Extract the updated value of vmfp for the food sector and plot
 </div>
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete the code </span></span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the updated value of vmfp for the food sector </span></span>
-<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="co"># from the `data` used by the GEModel object and plot</span></span>
-<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>vmfp_food <span class="ot">&lt;-</span> ?????<span class="sc">$</span>?????<span class="sc">$</span>vmfp[,<span class="st">"food"</span>,]</span>
-<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>vmfp_food</span>
-<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
-<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a>  vmfp_food,</span>
-<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">rownames</span>(vmfp_food),</span>
-<span id="cb83-10"><a href="#cb83-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">main=</span> <span class="st">"Imported purchases, by firms, at producers prices (million US$)"</span></span>
-<span id="cb83-11"><a href="#cb83-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete the code </span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the updated value of vmfp for the food sector </span></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="co"># from the `data` used by the GEModel object and plot</span></span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>vmfp_food <span class="ot">&lt;-</span> ?????<span class="sc">$</span>?????<span class="sc">$</span>vmfp[,<span class="st">"food"</span>,]</span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>vmfp_food</span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>  vmfp_food,</span>
+<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">rownames</span>(vmfp_food),</span>
+<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">main=</span> <span class="st">"Imported purchases, by firms, at producers prices (million US$)"</span></span>
+<span id="cb84-11"><a href="#cb84-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1371,10 +1358,10 @@ Show the answer
 <div id="callout-32" class="callout-32-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the updated value of vmfp for the food sector </span></span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="co"># from the `data` used by the GEModel object and plot</span></span>
-<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>vmfp_food <span class="ot">&lt;-</span> model<span class="sc">$</span>data<span class="sc">$</span>vmfp[,<span class="st">"food"</span>,]</span>
-<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>vmfp_food</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the updated value of vmfp for the food sector </span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="co"># from the `data` used by the GEModel object and plot</span></span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>vmfp_food <span class="ot">&lt;-</span> model<span class="sc">$</span>data<span class="sc">$</span>vmfp[,<span class="st">"food"</span>,]</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>vmfp_food</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       reg
 comm         ssa       eu       row
@@ -1382,11 +1369,11 @@ comm         ssa       eu       row
   mnfcs 4764.728 41639.26  83289.94
   svces 1295.402 12767.90  20467.17</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
-<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  vmfp_food,</span>
-<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">rownames</span>(vmfp_food),</span>
-<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">main=</span> <span class="st">"Imported purchases, by firms, at producers prices (million US$)"</span></span>
-<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  vmfp_food,</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">rownames</span>(vmfp_food),</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">main=</span> <span class="st">"Imported purchases, by firms, at producers prices (million US$)"</span></span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1400,8 +1387,8 @@ comm         ssa       eu       row
 </div>
 </section>
 </section>
-<section id="faq" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> FAQ</h1>
+<section id="faq" class="level1 unnumbered">
+<h1 class="unnumbered">FAQ</h1>
 <p>For common questions and answers, please visit the <a href="https://tsimonato.github.io/GTAPinR_Course/faq.html">FAQ page</a>.</p>
 </section>
 
