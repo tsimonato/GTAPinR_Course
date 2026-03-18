@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-02-10">
+<meta name="dcterms.date" content="2025-10-02">
 
 <title>GTAPinR Course</title>
 <style>
@@ -73,7 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="index_files/libs/quarto-diagram/mermaid.min.js"></script>
 <script src="index_files/libs/quarto-diagram/mermaid-init.js"></script>
 <link href="index_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
-<link href="index_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<link href="index_files/libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
 
 <script src="index_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 
@@ -163,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 10, 2025</p>
+      <p class="date">October 2, 2025</p>
     </div>
   </div>
   
@@ -216,7 +216,7 @@ p {
 <ol type="a">
 <li><p>Make sure that you have <strong>R</strong> installed on your computer. You can download the latest version of R from the <a href="https://www.r-project.org/">Comprehensive R Archive Network (CRAN)</a>.</p></li>
 <li><p>After installing R, install <strong>RStudio</strong>, a powerful and user-friendly integrated development environment for R. RStudio can be downloaded from the <a href="https://posit.co/download/rstudio-desktop/">official RStudio website</a>.</p></li>
-<li><p>Open the <strong>roadmap_gtapinr.r</strong> course folder using R studio. This is a blank R file. You will use this to copy/paste/write and run R codes that you will see throughout this course.</p></li>
+<li><p>Download the supplementary materials (used only for the hands-on exercises on this page) from the <a href="https://github.com/tsimonato/GTAPinR_Course/">GTAPinR_Course repository</a></p></li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
@@ -230,7 +230,26 @@ Tip
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>Set the working directory to the folder where the R file that you are editing is located. This is important since R will read the GTAP model file and database in the <strong>model</strong> subfolder. You can also manually set the working directory using the following codes:</p>
+<p>Click the green <strong>“Code”</strong> button and select <strong>“Download ZIP”</strong>. After downloading, unzip the folder. Inside the <code>docs/</code> directory, you will find the files and folders referenced in this tutorial, including <strong>roadmap_gtapinr.r</strong>.</p>
+</div>
+</div>
+</div>
+<ol start="4" type="a">
+<li>Open the <strong>roadmap_gtapinr.r</strong> course folder using R studio. This is a blank R file. You will use this to copy/paste/write and run R codes that you will see throughout this course.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Set the working directory to the folder where the R file that you are editing is located. This is important since R will read the GTAP model file and database in the <strong>inputs</strong> subfolder. You can also manually set the working directory using the following codes:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### Using R studio feature</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">dirname</span>(rstudioapi<span class="sc">::</span><span class="fu">getActiveDocumentContext</span>()<span class="sc">$</span>path))</span>
@@ -242,13 +261,14 @@ Tip
 </div>
 </div>
 </div>
-<ol start="4" type="a">
+<ol start="5" type="a">
 <li>Install <a href="https://cran.r-project.org/web/packages/devtools/index.html">devtools</a>, <a href="https://github.com/tsimonato/MTED-TabloToR">TabloToR</a> and <a href="https://github.com/mivanic/HARr">HARr</a> packages. You can install these packages using the following commands in R:</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">'USDA-ERS/MTED-HARr'</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">'tsimonato/MTED-TabloToR'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">'tsimonato/MTED-TabloToR'</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: “conflicts” or "rtools" warning messages are normal; use package::function if needed.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -287,8 +307,8 @@ Caution
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-f73f69a8d9c9451477b1" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f73f69a8d9c9451477b1">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],["Wheat","Corn","Wheat","Corn"],["Farming","Farming","Harvesting","Harvesting"],["Low","High","Low","High"],[1,2,3,4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Commodities<\/th>\n      <th>Activities<\/th>\n      <th>Margins<\/th>\n      <th>Values<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"searching":false,"paging":false,"info":false,"columnDefs":[{"className":"dt-right","targets":4},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Commodities","targets":1},{"name":"Activities","targets":2},{"name":"Margins","targets":3},{"name":"Values","targets":4}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f93e7c642d2762fc8227" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f93e7c642d2762fc8227">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],["Wheat","Corn","Wheat","Corn"],["Farming","Farming","Harvesting","Harvesting"],["Low","High","Low","High"],[1,2,3,4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Commodities<\/th>\n      <th>Activities<\/th>\n      <th>Margins<\/th>\n      <th>Values<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"searching":false,"paging":false,"info":false,"columnDefs":[{"className":"dt-right","targets":4},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Commodities","targets":1},{"name":"Activities","targets":2},{"name":"Margins","targets":3},{"name":"Values","targets":4}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>.</p>
@@ -461,7 +481,7 @@ $Details$Margins
 <section id="reading-and-writing-databases-with-harr" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Reading and Writing Databases with HARr</h1>
 <p>GEMPACK utilizes custom <em>.har</em> binary data files to store information. The R package <a href="https://github.com/USDA-ERS/MTED-HARr">HARr</a> enables R to directly read these <em>.har</em> files. It converts the data in these headers, including set information, into a <a href="https://rstudio.github.io/r-manuals/r-intro/Arrays-and-matrices.html">list</a> of <a href="https://rstudio.github.io/r-manuals/r-intro/Arrays-and-matrices.html">arrays</a>, in which each array represents a header of the <em>.har</em> file.</p>
-<p>In this step, you will write a script to read the GTAP basedata and explore specific headers within them. Specifically, you will extract and examine the header <code>vdfb</code> (Domestic purchases, by firms, at basic prices).</p>
+<p>In this step, you will write a script to read the GTAP basedata and explore specific headers within them. Specifically, you will extract and examine the header <code>vmfp</code> (Imported purchases, by firms, at producers prices).</p>
 <section id="loading-the-gtap-data-files" class="level3" data-number="2.0.1">
 <h3 data-number="2.0.1" class="anchored" data-anchor-id="loading-the-gtap-data-files"><span class="header-section-number">2.0.1</span> Loading the GTAP data files</h3>
 <p>In this step, you will learn how to load the GTAP model’s database files into R using the <a href="https://github.com/USDA-ERS/MTED-HARr">HARr</a> package. This step is crucial as it sets the foundation for solving the model. You will focus on how to read <em>.har</em> files in a specific way and understand their structure within the R environment.</p>
@@ -488,7 +508,7 @@ Task 1: Create <code>database</code> list which reads in the GTAP basedata, para
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -497,7 +517,7 @@ Show the answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create `database` list which reads in the GTAP basedata,</span></span>
@@ -512,7 +532,7 @@ Show the answer
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -521,7 +541,7 @@ Explanation
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The <a href="https://github.com/USDA-ERS/MTED-HARr">HARr</a> package loads the <em>.har</em> files and stores them as array objects in R named *sets.har<strong>, </strong>default.prm<strong>, and </strong>basedata.har** into R and stores the files as a list named <code>database</code>, with keys <code>gtapsets</code>, <code>gtapdata</code>, and <code>gtapparm</code> respectively.</p>
 <p>The name of each list must be the same as the files specified in the <strong>TABLO</strong> code, preferably in lowercase. If you open the <em>gtapv7.tab</em>, file you should see the following lines:</p>
@@ -559,7 +579,7 @@ Task 2: Extracting the <code>vmfp</code> header in the <code>database</code> lis
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -568,7 +588,7 @@ Show the answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract and store 'vmfp' header as array object vmfp</span></span>
@@ -604,7 +624,7 @@ comm         food      mnfcs     svces
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -613,7 +633,7 @@ Explanation
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Recall in Task 1, you stored the <em>.har</em> files as a list named <code>database</code>, with keys <code>gtapsets</code>, <code>gtapdata</code>, and <code>gtapparm</code> respectively. You can then use R’s traditional sublist selector <code>$</code> to subset lists and [,,] to subset the array in its 3 dimensions. Note that all characters in the database are in lower case, including the name of the headers.</p>
 <p>To display the available headers in the <code>database</code> list, you can use the <code>names()</code> function in R. To view the number of dimensions and dimension names in an array you can use the <code>dim()</code> and <code>dimnames()</code> function in R</p>
@@ -662,7 +682,7 @@ Task 3: Filter for <code>food</code> elements in <code>acts</code> set in <code>
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -671,7 +691,7 @@ Show the answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for `food` elements in `acts` set in `vmfp` array object</span></span>
@@ -689,7 +709,7 @@ comm         ssa        eu       row
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -698,7 +718,7 @@ Explanation
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>To filter an array, you need to know the number and order of its dimensions, in the case of vmfp: <code>[comm,acts,reg]</code>. To view the number of dimensions and dimension names in an array you can use the <code>dim()</code> and <code>dimnames()</code> function in R</p>
 <div class="cell">
@@ -744,7 +764,7 @@ Task 4: Convert the <code>vmfp</code> array into a <code>data.frame.table</code>
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -753,7 +773,7 @@ Show the answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert vmfp into data.frame.table</span></span>
@@ -795,7 +815,7 @@ Show the answer
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -804,13 +824,13 @@ Explanation
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Arrays converted to data.frame through <code>as.data.frame.table()</code> function. Also, keep in mind that they have <em>freq</em> as the name of the column of numerical values.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-77f67bc80abcde966fab" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-77f67bc80abcde966fab">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27"],["food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces"],["food","food","food","mnfcs","mnfcs","mnfcs","svces","svces","svces","food","food","food","mnfcs","mnfcs","mnfcs","svces","svces","svces","food","food","food","mnfcs","mnfcs","mnfcs","svces","svces","svces"],["ssa","ssa","ssa","ssa","ssa","ssa","ssa","ssa","ssa","eu","eu","eu","eu","eu","eu","eu","eu","eu","row","row","row","row","row","row","row","row","row"],[3053.640869140625,4988.4931640625,1352.623413085938,847.5477294921875,21711.203125,2573.546142578125,699.6063232421875,13755.7685546875,5244.45947265625,106757.5390625,42000.4375,12873.859375,19543.310546875,729110.9375,67352.2578125,21146.185546875,210368.3125,198928.09375,132265.84375,85475.671875,21010.39453125,38923.7421875,1269135.125,74416.015625,30186.4140625,430168.25,211477.125]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comm<\/th>\n      <th>acts<\/th>\n      <th>reg<\/th>\n      <th>Freq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":4},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comm","targets":1},{"name":"acts","targets":2},{"name":"reg","targets":3},{"name":"Freq","targets":4}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f63d0ea95bc95adbd6cb" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f63d0ea95bc95adbd6cb">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27"],["food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces","food","mnfcs","svces"],["food","food","food","mnfcs","mnfcs","mnfcs","svces","svces","svces","food","food","food","mnfcs","mnfcs","mnfcs","svces","svces","svces","food","food","food","mnfcs","mnfcs","mnfcs","svces","svces","svces"],["ssa","ssa","ssa","ssa","ssa","ssa","ssa","ssa","ssa","eu","eu","eu","eu","eu","eu","eu","eu","eu","row","row","row","row","row","row","row","row","row"],[3053.640869140625,4988.4931640625,1352.623413085938,847.5477294921875,21711.203125,2573.546142578125,699.6063232421875,13755.7685546875,5244.45947265625,106757.5390625,42000.4375,12873.859375,19543.310546875,729110.9375,67352.2578125,21146.185546875,210368.3125,198928.09375,132265.84375,85475.671875,21010.39453125,38923.7421875,1269135.125,74416.015625,30186.4140625,430168.25,211477.125]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comm<\/th>\n      <th>acts<\/th>\n      <th>reg<\/th>\n      <th>Freq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":4},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comm","targets":1},{"name":"acts","targets":2},{"name":"reg","targets":3},{"name":"Freq","targets":4}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -842,7 +862,7 @@ Task 5: Plot the <code>vmfp_food</code> object using <code>barplot()</code> func
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -851,7 +871,7 @@ Show the answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot vmfp_food using barplot() function in R</span></span>
@@ -868,6 +888,25 @@ Show the answer
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explanation
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In R, plotting functions typically take a numeric object (vector, matrix, or array) as the first argument and generate a visual representation of its values. Additional arguments allow customization of titles, legends, labels, and layout.</p>
+<p>In this example, we use the base R function <code>barplot()</code> for simplicity and transparency. The goal is not to emphasize a specific plotting library, but to demonstrate how model outputs or database extracts can be quickly visualized for exploratory analysis.</p>
+<p>The same results could be produced using other visualization tools in R, such as <a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a> (e.g., <code>ggplot::geom_bar()</code>), depending on user preference and desired formatting.</p>
+<p>At this stage, the main objective is to explore and understand the structure and magnitude of the data — identifying patterns, differences across regions or activities, and gaining intuition about the database — rather than focusing on advanced graphical customization.</p>
 </div>
 </div>
 </div>
@@ -904,7 +943,7 @@ Task 6: Assign model file and database after initializing a <code>GEMModel</code
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -913,7 +952,7 @@ Show the answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: The order of the code matters! </span></span>
@@ -936,7 +975,7 @@ Show the answer
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -945,7 +984,7 @@ Explanation
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The first step calls the function <code>GEModel$new()</code> which creates a new instance of the <code>GEModel</code> class. It is an empty object which represents the model, its inputs and outputs.</p>
 <p>The second step calls the function <code>loadTablo()</code> which interprets a TABLO model and turns it into an R code inside the <code>GEModel</code> object. This is achieved through a process that interprets and translates different components of the model file such as statements like <em>Read</em>, <em>Set</em>, <em>Coefficient</em>, <em>Variable</em>, <em>Formula</em>, <em>Equation</em>, <em>Parameter</em>, <em>Mapping</em>, and so on. Each category of commands is handled in a specific way to ensure they are correctly represented in R. The correct labeling of each statement into its appropriate group is essential for the subsequent definition and construction of the matrix that will be inverted during the simulation. This precise organization is key to maintaining the integrity of the model’s structure and calculations as it transitions into the R environment.</p>
@@ -985,7 +1024,7 @@ Task 7: Define the exogenous variables in model closure
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -994,7 +1033,7 @@ Show the answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create character object in R which lists all exogenous variables</span></span>
@@ -1033,7 +1072,7 @@ Task 8: Setting shocks to all exogenous variables in the <code>GEModel</code> ob
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1042,7 +1081,7 @@ Show the answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop statement to assign zero values to each exogenous </span></span>
@@ -1075,7 +1114,7 @@ Task 9: Applying shocks to key exogenous variables in the <code>GEModel</code> o
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1084,7 +1123,7 @@ Show the answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-25" class="callout-25-contents callout-collapse collapse">
+<div id="callout-27" class="callout-27-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign 10% productivity shock to 'food' sectors in 'ssa' and 'eu' regions </span></span>
@@ -1104,7 +1143,7 @@ acts    ssa eu row
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1113,7 +1152,7 @@ Explanation
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-26" class="callout-26-contents callout-collapse collapse">
+<div id="callout-28" class="callout-28-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Setting up the model closure requires identifying which variables are exogenous and then assigning zero values within the <code>GEModel</code> object using the <code>variableValues()</code> function. Use the <code>loop</code> function in R to efficiently assign zero values to all exogenous variables.</p>
 <p><code>tabloToR</code> automatically assigns other variables which are not shocked as endogenous variables.</p>
@@ -1151,7 +1190,7 @@ Task 10: Solve the <code>GEModel</code> object using Euler method with 3 iterati
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-30-contents" aria-controls="callout-30" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1160,7 +1199,7 @@ Show the answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-28" class="callout-28-contents callout-collapse collapse">
+<div id="callout-30" class="callout-30-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve the `GEModel` object using Euler with </span></span>
@@ -1288,7 +1327,7 @@ Task 11: Extract the percent changes in total output in each region and plot
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-30-contents" aria-controls="callout-30" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1297,7 +1336,7 @@ Show the answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-30" class="callout-30-contents callout-collapse collapse">
+<div id="callout-32" class="callout-32-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the percent changes in total output in each region and plot</span></span>
@@ -1346,7 +1385,7 @@ Task 12: Extract the updated value of vmfp for the food sector and plot
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1355,7 +1394,7 @@ Show the answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div id="callout-34" class="callout-34-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the updated value of vmfp for the food sector </span></span>

@@ -500,8 +500,8 @@ Answer
 </div>
 </div>
 </section>
-<section id="can-i-extend-the-workflow-to-baselines-or-regional-models" class="level5">
-<h5 class="anchored" data-anchor-id="can-i-extend-the-workflow-to-baselines-or-regional-models">Can I extend the workflow to baselines or regional models?</h5>
+<section id="can-analysege-style-analysis-be-conducted-in-r" class="level5">
+<h5 class="anchored" data-anchor-id="can-analysege-style-analysis-be-conducted-in-r">Can AnalyseGE-style analysis be conducted in R?</h5>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -514,7 +514,27 @@ Answer
 </div>
 <div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The package has been developed and tested specifically with the standard GTAP version 7 model. While it is technically possible that the workflow could be adapted for other models or for extensions such as baseline construction and regional disaggregation, these uses have not been the focus of development and have not been systematically tested. Users attempting such applications should be aware of these limitations.</p>
+<p>R does not provide the dedicated graphical user interface or built-in automation features available in GEMPACK’s AnalyseGE tool. Any decomposition analysis in R must therefore be explicitly by the user, and may require additional scripting compared to the standard AnalyseGE workflow.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="can-i-extend-the-workflow-to-baselines-or-other-models" class="level5">
+<h5 class="anchored" data-anchor-id="can-i-extend-the-workflow-to-baselines-or-other-models">Can I extend the workflow to baselines or other models?</h5>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Reading and writing <code>.har</code> and <code>.sl4</code> files using the <strong>HARr</strong> package is model-agnostic. These file formats can originate from different modeling frameworks, and HARr can process them regardless of the specific CGE model used.</p>
+<p>However, running simulations in R using the <strong>tabloToR</strong> package is not model-agnostic. The current implementation has been developed and tested specifically for the standard GTAP version 6 and 7 models. It has not been systematically tested to run GTAP extensions or other CGE models. Users attempting such applications should be aware of these limitations.</p>
 </div>
 </div>
 </div>
